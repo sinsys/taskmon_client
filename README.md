@@ -2,7 +2,9 @@
 
 ## Description
 
-This is a task manager application intended to provide a sense of urgency on projects.
+This is a task manager application intended to provide a sense of urgency on projects. Instead of displaying the traditional due date of a project or task, this application displays a constant countdown timer showing you how much time you have left to complete the task.
+
+It also records how long you are working and provides a helpful "hydration meter" ensuring you're drinking enough water while you bash away on your projects!
 
 ## Table of contents
 
@@ -38,7 +40,7 @@ This is a task manager application intended to provide a sense of urgency on pro
 - Your app must live at a custom URL and include a Favicon (we'll cover this later in the module).
 - Your app must work across different browsers (Chrome, Firefox, and Safari at a minimum)
 - If you choose to include an authentication system in your app, you must set up a demo user account and indicate on the landing page how to use it.
-- 
+
 ## Available Scripts
 In the project directory, you can run:
 ### `npm start`
