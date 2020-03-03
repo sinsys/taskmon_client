@@ -9,6 +9,7 @@ It also records how long you are working and provides a helpful "hydration meter
 ## Table of contents
 
 *  [Technologies](#technologies)
+*  [Resources](#resources)
 *  [Requirements](#requirements)
 *  [Available Scripts](#available-scripts)
 
@@ -22,7 +23,11 @@ It also records how long you are working and provides a helpful "hydration meter
 | | **Express** | *4.17.1* |
 | **pgSQL** | **PostgreSQL** | *10.12* |
 
-## Requirements:
+## Resources
+- Gantt Chart for progress tracking: [Gantt Chart](https://docs.google.com/spreadsheets/d/1gs3NtOi0saVZm1x91WcbMBz3AyNKN3RqGG2ubOGZn8Q/edit#gid=2140549662?usp=sharing)
+- User Stories for use-cases: [User Stories](https://docs.google.com/spreadsheets/d/1gs3NtOi0saVZm1x91WcbMBz3AyNKN3RqGG2ubOGZn8Q/edit#gid=739121299?usp=sharing)
+
+## Requirements
 
 - Your app must do something interesting or useful
 - Your app must be a fullstack app using React, CSS, Node, Express, and PostgreSQL.
