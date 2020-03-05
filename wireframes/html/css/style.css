@@ -99,6 +99,7 @@ input[type="datetime-local"] {
 .Main {
   align-items: center;
   flex-direction: column;
+  padding: 1rem 0;
 }
 
 /* HEADER ELEMENTS */

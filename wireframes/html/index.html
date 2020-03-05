@@ -6,7 +6,11 @@
 		<meta name="description" content="These are simple wireframes for the TaskMon application.">
     <title>TaskMon Wireframes</title>
     <link rel="stylesheet" type="text/css" href="css/reset.css">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
 	</head>
 	<body>
 
@@ -25,30 +29,11 @@
       <main class="Main_wrapper launch">
         <div class="Main">
 
-          <h2>Wireframes</h2>
-          <ul class="Wireframes-list">
-            <li>
-              <a href="./login.html">Login</a>
-            </li>
-            <li>
-              <a href="./signup.html">Signup</a>
-            </li>
-            <li>
-              <a href="./open-menu-mobile.html">Open Menu</a>
-            </li>
-            <li>
-              <a href="./home.html">Home</a>
-            </li>
-            <li>
-              <a href="./add-task.html">Add/Edit Task</a>
-            </li>
-            <li>
-              <a href="./add-folder.html">Add/Edit Folder</a>
-            </li>
-            <li>
-              <a href="./add-project.html">Add/Edit Project</a>
-            </li>
-          </ul>
+          <h2>HTML Wireframes</h2>
+          <ul id="Wireframes-html-list" class="Wireframes-list"></ul>
+          <h2>Image Wireframes</h2>
+          <ul id="Wireframes-images-list" class="Wireframes-list"></ul>
+
         </div>
       </main>
 
@@ -60,6 +45,38 @@
 
     </section>
 
-		<script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script>
+      $(function() {
+
+        fetch("https://api.github.com/repos/sinsys/taskmon_client/contents/wireframes/html")
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          const pages = data.forEach(i => {
+            if(i.type === "file"){
+              $('#Wireframes-html-list').append(`
+               <li><a href="${i.html_url}">${i.name}</a></li>
+              `)
+            }
+          });
+        });
+
+        fetch("https://api.github.com/repos/sinsys/taskmon_client/contents/wireframes")
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          const images = data.forEach(i => {
+            if(i.type === "file"){
+              $('#Wireframes-images-list').append(`
+               <li><a href="${i.download_url}">${i.name}</a></li>
+              `)
+            }
+          });
+        });
+      });
+    </script>
 	</body>
 </html>
