@@ -26,6 +26,8 @@ It also records how long you are working and provides a helpful "hydration meter
 ## Planning
 - Gantt Chart for progress tracking: [Gantt Chart](https://docs.google.com/spreadsheets/d/1gs3NtOi0saVZm1x91WcbMBz3AyNKN3RqGG2ubOGZn8Q/edit#gid=2140549662?usp=sharing)
 - User Stories for use-cases: [User Stories](https://docs.google.com/spreadsheets/d/1gs3NtOi0saVZm1x91WcbMBz3AyNKN3RqGG2ubOGZn8Q/edit#gid=739121299?usp=sharing)
+- HTML Wireframes: [Wireframes Navigator](https://sinsys.github.io/taskmon_client/wireframes/html/index.html)
+  - > You can select the 'logo' icon in the header to go back to the wireframe list
 
 ## Requirements
 
