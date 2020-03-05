@@ -1,27 +1,8 @@
-import React, { createContext, Component } from 'react';
+import React from 'react';
 
-export const UserContext = createContext();
+const UserContext = React.createContext();
 
-class UserContextProvider extends Component {
+export const UserProvider = UserContext.Provider;
+export const UserConsumer = UserContext.Consumer;
 
-  state = {
-    isLoggedIn: false
-  };
-
-  render() {
-
-    return (
-
-      <UserContext.Provider
-        value={{...this.state}}
-      >
-        {this.props.children}
-      </UserContext.Provider>
-
-    );
-
-  };
-
-};
-
-export default UserContextProvider;
+export default UserContext;

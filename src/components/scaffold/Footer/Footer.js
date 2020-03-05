@@ -8,7 +8,7 @@ function Footer() {
 
     <footer className="Footer_wrapper">
       <div className="Footer">
-        <p>&copy;Nico Web Development | 2020</p>
+        <p>&copy;Nicholas Hazel | 2020</p>
       </div>
     </footer>
     
