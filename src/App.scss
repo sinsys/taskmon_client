@@ -7,7 +7,7 @@
   width: 100vw;
   overflow-x: hidden;
   flex-direction: column;
-  background: $green;
+  background: $light-green;
   color: $black;
   font-weight: bold;
   font-family: 'Titillium Web';
@@ -40,21 +40,28 @@ button {
   margin: .5rem 0;
 }
 
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button {
+  padding: 0.75rem 1rem;
+  border-radius: 1.5rem;
+  border: 2px solid $light-green;
+  letter-spacing: 0.1rem;
+}
+button {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1rem;
+  border: 0;
+  cursor: pointer;
+  transition: all 0.3s ease,;
+}
+button:hover {
+  transform: scale(1.05);
+}
 input[type="datetime-local"] {
   width: 100%;
-}
-/* Directory */
-.Wireframes-list {
-  list-style-type: none;
-}
-.Wireframes-list li {
-  font-size: 1.25rem;
-}
-.Wireframes-list li a {
-  text-decoration: none;
-}
-.Wireframes-list li a:hover {
-  color: #3399DD;
 }
 
 /* SCAFFOLDING */
@@ -69,18 +76,19 @@ input[type="datetime-local"] {
 
 .Header_wrapper {
   flex-basis: 12.5%;
-  background: $light-blue;
+  background: $light-green;
 }
 .Main_wrapper {
   flex-basis: 77.5%;
-  background: #FEFEFE;
+  background: $white;
 }
 .Main_wrapper.no-padding {
   padding: 0;
 }
 .Footer_wrapper {
   flex-basis: 10%;
-  background: $light-blue;
+  background: $light-green;
+  padding: 1rem;
 }
 
 .Header_wrapper.launch {
@@ -111,66 +119,6 @@ input[type="datetime-local"] {
   padding: 1rem 0;
 }
 
-/* HEADER ELEMENTS */
-.Header h1 {
-  font-size: 1.75rem;
-}
-.Header img {
-  height: 2rem;
-  border-radius: 1rem;
-}
-.launch .Header h1 {
-  font-size: 2.5rem;
-}
-.launch .Header img {
-  height: 4rem;
-  border-radius: 2rem;
-}
-
-.box-shadow-menu {
-  position: relative;
-  padding-left: 2rem;
-  margin-left: auto;
-}
-
-.box-shadow-menu:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: -1rem;
-  width: 2rem;
-  height: 0.15rem;
-  background: black;
-  box-shadow: 
-    0 0.75rem 0 0 black,
-    0 1.5rem 0 0 black;
-  opacity: 0.3;
-}
-
-.close {
-  position: relative;
-  width: 32px;
-  height: 32px;
-  opacity: 0.3;
-  margin-left: auto;
-}
-.close:hover {
-  opacity: 1;
-}
-.close:before, .close:after {
-  position: absolute;
-  left: 15px;
-  content: ' ';
-  height: 33px;
-  width: 2px;
-  background-color: #333;
-}
-.close:before {
-  transform: rotate(45deg);
-}
-.close:after {
-  transform: rotate(-45deg);
-}
 
 /* MAIN ELEMENTS */
 .Main-heading {
@@ -185,8 +133,6 @@ input[type="datetime-local"] {
   width: 100%;
   max-width: 480px;
 }
-
-/* FOOTER ELEMENTS */
 
 /* PAGE SPECIFIC ELEMENTS */
 /* ADD-* */
@@ -208,6 +154,7 @@ input[type="datetime-local"] {
   height: 100%;
   width: 100%;
 }
+
 .Menu ul {
   height: 100%;
   display: flex;
@@ -266,7 +213,5 @@ input[type="datetime-local"] {
   margin-left: auto;
   background: #DDD;
 }
-.Tasks-list {
 
-}
 
