@@ -6,6 +6,9 @@ This is a task manager application intended to provide a sense of urgency on pro
 
 It also records how long you are working and provides a helpful "hydration meter" ensuring you're drinking enough water while you bash away on your projects!
 
+## Live Site
+[TaskMon](https://taskmon.now.sh)
+
 ## Table of contents
 
 *  [Technologies](#technologies)
@@ -26,8 +29,7 @@ It also records how long you are working and provides a helpful "hydration meter
 ## Planning
 - Gantt Chart for progress tracking: [Gantt Chart](https://docs.google.com/spreadsheets/d/1gs3NtOi0saVZm1x91WcbMBz3AyNKN3RqGG2ubOGZn8Q/edit#gid=2140549662?usp=sharing)
 - User Stories for use-cases: [User Stories](https://docs.google.com/spreadsheets/d/1gs3NtOi0saVZm1x91WcbMBz3AyNKN3RqGG2ubOGZn8Q/edit#gid=739121299?usp=sharing)
-- HTML Wireframes: [Wireframes Navigator](https://sinsys.github.io/taskmon_client/wireframes/html/index.html)
-  - > You can select the 'logo' icon in the header to go back to the wireframe list
+- Wireframes: [Wireframes Navigator](https://sinsys.github.io/taskmon_client/wireframes/html/index.html)
 - User Flows: [User Flows on Draw.io](https://drive.google.com/file/d/1Z--cjFDzV-dabEC5hAtgKheW9UV70B5F/view?usp=sharing)
 
 ## Requirements

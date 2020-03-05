@@ -1,0 +1,25 @@
+@import '../../../themes/_meadow.scss';
+
+.submit-btn {
+  background: $light-green;
+  color: $white;
+}
+.submit-btn:hover {
+  background: $success;
+}
+
+.create-acct-btn {
+  background: $light-blue;
+  color: $white;
+}
+.create-acct-btn:hover {
+  background: $blue;
+}
+.guest-login-btn {
+  background: transparent;
+  border: 1px solid $gray;
+}
+.cancel-btn {
+  background: $error;
+  color: $white;
+}
