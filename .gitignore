@@ -24,3 +24,9 @@ yarn-error.log*
 
 # Adobe XD design
 wireframes/TaskMon.xd
+
+# Zeit Now configuration
+.now
+
+# Personal notes
+notes.txt
