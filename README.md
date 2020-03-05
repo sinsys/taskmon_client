@@ -9,7 +9,7 @@ It also records how long you are working and provides a helpful "hydration meter
 ## Table of contents
 
 *  [Technologies](#technologies)
-*  [Resources](#resources)
+*  [Planning](#planning)
 *  [Requirements](#requirements)
 *  [Available Scripts](#available-scripts)
 
@@ -23,7 +23,7 @@ It also records how long you are working and provides a helpful "hydration meter
 | | **Express** | *4.17.1* |
 | **pgSQL** | **PostgreSQL** | *10.12* |
 
-## Resources
+## Planning
 - Gantt Chart for progress tracking: [Gantt Chart](https://docs.google.com/spreadsheets/d/1gs3NtOi0saVZm1x91WcbMBz3AyNKN3RqGG2ubOGZn8Q/edit#gid=2140549662?usp=sharing)
 - User Stories for use-cases: [User Stories](https://docs.google.com/spreadsheets/d/1gs3NtOi0saVZm1x91WcbMBz3AyNKN3RqGG2ubOGZn8Q/edit#gid=739121299?usp=sharing)
 
@@ -42,7 +42,7 @@ It also records how long you are working and provides a helpful "hydration meter
 - You must have comprehensive README files for both GitHub repos (we'll discuss this step in detail at the end of this module).
 - Your app must have a landing page that explains what the app does and how to get started, in addition to pages required to deliver the main functionality.
 - You must deploy a live, publicly-accessible version of your app.
-- Your app must live at a custom URL and include a Favicon (we'll cover this later in the module).
+- Your app must live at a custom URL and include a Favicon (we'll cover this later in the module)
 - Your app must work across different browsers (Chrome, Firefox, and Safari at a minimum)
 - If you choose to include an authentication system in your app, you must set up a demo user account and indicate on the landing page how to use it.
 

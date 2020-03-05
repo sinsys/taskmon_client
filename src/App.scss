@@ -1,0 +1,12 @@
+@import 'themes/_meadow.scss';
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  background: $green;
+  color: $black;
+  font-weight: bold;
+  font-family: 'Titillium Web';
+  letter-spacing: 0.1rem;
+}

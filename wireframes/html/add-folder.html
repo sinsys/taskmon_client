@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width initial-scale=1">
+		<meta name="description" content="These are simple wireframes for the TaskMon application.">
+    <title>TaskMon Wireframes - Add Folder</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+
+    <section class="App">
+
+      <header class="Header_wrapper">
+        <div class="Header">
+          <a href="./index.html">
+            <img src="https://dummyimage.com/64/FFFFFF/000.png&text=Logo" alt="logo" />
+          </a>
+          <h1>TaskMon</h1>
+          <a href="#menu" class="box-shadow-menu"></a>
+        </div>
+      </header>
+
+      <main class="Main_wrapper">
+        <div class="Main">
+          <form class="Add-project_form base-form">
+            <h2 class="Main-heading">Add Folder</h2>
+            <label for="title-field">
+              Title
+            </label>
+            <input type="text" id="title-field" name="title-field" />
+            <label for="description-field">
+              Description
+            </label>
+            <textarea id="description-field" name="description-field" /></textarea>
+            <div class="form-checkbox-wrapper">
+              <input type="checkbox" id="project-checkbox" name="project-checkbox" checked>
+              <label for="project-checkbox" class="checkbox-label">
+                Include in Project?
+              </label>
+              <select id="project-select" name="project-select">
+                <option value="Project 1">
+                  Project 1
+                </option>
+              </select>
+            </div>
+            <button type="submit" form="Add-folder_form" id="add-folder-btn" name="add-folder-btn" value="Add Folder">
+              Add Folder
+            </button>
+            <button id="cancel-btn" name="cancel-btn" value="Cancel">
+              Cancel
+            </button>
+          </form>
+        </div>
+      </main>
+
+      <footer class="Footer_wrapper">
+        <div class="Footer">
+          <p>Footer information here</p>
+        </div>
+      </footer>
+
+    </section>
+
+		<script type="text/javascript" src="js/script.js"></script>
+	</body>
+</html>

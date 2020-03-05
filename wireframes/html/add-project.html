@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width initial-scale=1">
+		<meta name="description" content="These are simple wireframes for the TaskMon application.">
+    <title>TaskMon Wireframes - Add Project</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+
+    <section class="App">
+
+      <header class="Header_wrapper">
+        <div class="Header">
+          <a href="./index.html">
+            <img src="https://dummyimage.com/64/FFFFFF/000.png&text=Logo" alt="logo" />
+          </a>
+          <h1>TaskMon</h1>
+          <a href="#menu" class="box-shadow-menu"></a>
+        </div>
+      </header>
+
+      <main class="Main_wrapper">
+        <div class="Main">
+          <form class="Add-folder_form base-form">
+            <h2 class="Main-heading">Add Project</h2>
+            <label for="title-field">
+              Title
+            </label>
+            <input type="text" id="title-field" name="title-field" />
+            <label for="description-field">
+              Description
+            </label>
+            <textarea id="description-field" name="description-field" /></textarea>
+            <label for="date-time-due-field">
+              Due Date:
+            </label>
+            <input type="date" id="date-due-field" name="date-due-field" value="2020-03-05" min="2020-03-05">
+            <div class="form-checkbox-wrapper">
+              <label for="priority-checkbox" class="checkbox-label">
+                Priority
+              </label>
+              <select id="priority-select" name="priority-select">
+                <option value="low">
+                  Low
+                </option>
+                <option value="medium">
+                  Medium
+                </option>
+                <option value="high">
+                  High
+                </option>
+                <option value="critical">
+                  Critical
+                </option>
+              </select>
+            </div>
+            <button type="submit" form="Add-project_form" id="add-project-btn" name="add-folder-btn" value="Add Project">
+              Add Project
+            </button>
+            <button id="cancel-btn" name="cancel-btn" value="Cancel">
+              Cancel
+            </button>
+          </form>
+        </div>
+      </main>
+
+      <footer class="Footer_wrapper">
+        <div class="Footer">
+          <p>Footer information here</p>
+        </div>
+      </footer>
+
+    </section>
+
+		<script type="text/javascript" src="js/script.js"></script>
+	</body>
+</html>
