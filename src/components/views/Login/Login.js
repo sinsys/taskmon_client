@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useInputChange } from 'hooks/useInputChange';
-import { UserContext } from 'contexts/UserContext/UserContext';
+import { UserContext } from 'contexts/UserContext';
 
 import Button from 'components/elements/Button/Button';
 
@@ -9,7 +9,7 @@ import './Login.scss';
 
 function Login() {
 
-  let { dispatch } = React.useContext(UserContext);
+  let { dispatch } = useContext(UserContext);
 
   let login = () => dispatch({
     type: "login"

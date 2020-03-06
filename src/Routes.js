@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { UserContextProvider }from 'contexts/UserContext/UserContext';
+import { UserContextProvider }from 'contexts/UserContext';
+import { SessionContextProvider } from 'contexts/SessionContext';
 
 import Header from 'components/scaffold/Header/Header';
 import Footer from 'components/scaffold/Footer/Footer';
@@ -26,10 +27,12 @@ export const Routes = () => {
               exact path={'/signup'}
               component={Signup}
             />
-            <Route
-              exact path={'/dashboard'}
-              component={Dashboard}
-            />
+            <SessionContextProvider>
+                <Route
+                  exact path={'/dashboard'}
+                  component={Dashboard}
+                />
+            </SessionContextProvider>
             <Route component={NoMatch} />
           </Switch>
         <Footer />

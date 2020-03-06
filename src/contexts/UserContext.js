@@ -1,6 +1,9 @@
-import * as React from "react";
+import React, {
+  createContext,
+  useReducer
+} from "react";
 
-let UserContext = React.createContext();
+let UserContext = createContext();
 
 let initialState = {
   isLoggedIn: false
@@ -8,23 +11,20 @@ let initialState = {
 
 let reducer = (state, action) => {
   switch (action.type) {
-    case "reset":
-      return initialState;
     case "login":
       return {
-        ...state, 
         isLoggedIn: true,
         name: "Test Account"
       };
     case "logout":
-      return { ...state, isLoggedIn: false };
+      return initialState
     default:
-      return { ...state }
+      return initialState
   }
 };
 
 function UserContextProvider(props) {
-  let [state, dispatch] = React.useReducer(reducer, initialState);
+  let [state, dispatch] = useReducer(reducer, initialState);
   let value = { state, dispatch };
   return (
     <UserContext.Provider value={value}>

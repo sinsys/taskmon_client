@@ -1,5 +1,8 @@
-import React from 'react';
-import { TimerContext } from 'contexts/TimerContext/TimerContext';
+import React, { 
+  useContext, 
+  useEffect 
+} from 'react';
+import { SessionContext } from 'contexts/SessionContext';
 
 import Button from 'components/elements/Button/Button';
 
@@ -7,25 +10,24 @@ import './Timer.scss';
 
 const Timer = () => {
 
-  // const [seconds, setSeconds] = useState(0);
-  const { state, dispatch } = React.useContext(TimerContext);
+  const { state, dispatch } = useContext(SessionContext);
 
-  // const [isActive, setIsActive] = React.useState(false);
-
-
-
-  let toggle = () => dispatch({
-    type: "toggle"
+  let start = () => dispatch({
+    type: "start"
   });
 
-  React.useEffect(() => {
-    let increment = () => dispatch({
-      type: "increment"
+  let stop = () => dispatch({
+    type: "stop"
+  });
+
+  useEffect(() => {
+    let updateString = () => dispatch({
+      type: "update-string"
     });
     let interval = null;
     if (state.active) {
       interval = setInterval(() => {
-        increment();
+        updateString();
       }, 1000);
     } else if (!state.active && state.seconds !== 0) {
       clearInterval(interval);
@@ -36,7 +38,7 @@ const Timer = () => {
   return (
     <div className="Timer">
       <div className="time">
-        <p>{`${state.seconds} seconds`}</p>
+        {state.string}
       </div>
       <div className="row">
         <Button
@@ -44,8 +46,11 @@ const Timer = () => {
           className={`button button-primary button-primary-${state.active ? 'active' : 'inactive'}`}
           type="button"
           name="start-work-btn"
-          text={state.active ? 'Pause' : 'Start'}
-          onClick={() => toggle()}
+          text={state.active ? 'End Session' : 'Start Session'}
+          onClick={state.active
+            ? () => stop()
+            : () => start()
+          }
         />
       </div>
     </div>

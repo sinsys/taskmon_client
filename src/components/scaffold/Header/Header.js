@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { UserContext } from 'contexts/UserContext/UserContext';
+import { UserContext } from 'contexts/UserContext';
 
 import './Header.scss';
 
 function Header() {
 
-  let { state, dispatch } = React.useContext(UserContext);
+  let { state, dispatch } = useContext(UserContext);
 
   let logout = () => dispatch({
     type: "logout"
