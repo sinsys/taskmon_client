@@ -1,12 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useInputChange } from 'hooks/useInputChange';
+import { UserContext } from 'contexts/UserContext';
 
 import Button from 'components/elements/Button/Button';
 
 import './Signup.scss';
 
-function Signup() {
+const Signup = () => {
 
   const history = useHistory();
 

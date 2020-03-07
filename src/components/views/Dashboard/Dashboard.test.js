@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Dashboard from './Dashboard';
 
 import { UserContextProvider } from 'contexts/UserContext';
+import { SessionContextProvider } from 'contexts/SessionContext';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -11,7 +12,9 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <Router>
       <UserContextProvider>
-        <Dashboard />
+        <SessionContextProvider>
+          <Dashboard />
+        </SessionContextProvider>
       </UserContextProvider>
     </Router>,
   	div

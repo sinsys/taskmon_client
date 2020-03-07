@@ -4,7 +4,7 @@ import { UserContext } from 'contexts/UserContext';
 
 import './Header.scss';
 
-function Header() {
+const Header = () => {
 
   let { state, dispatch } = useContext(UserContext);
 

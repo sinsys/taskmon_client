@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Footer.scss';
 
-function Footer() {
+const Footer = () => {
 
   return (
 

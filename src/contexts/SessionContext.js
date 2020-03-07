@@ -40,7 +40,7 @@ let reducer = (state, action) => {
   }
 };
 
-function SessionContextProvider(props) {
+const SessionContextProvider = (props) => {
   let [state, dispatch] = useReducer(reducer, initialState);
   let value = { state, dispatch };
   return (
@@ -48,9 +48,8 @@ function SessionContextProvider(props) {
       {props.children}
     </SessionContext.Provider>
   );
-}
+};
 
 let SessionContextConsumer = SessionContext.Consumer;
 
 export { SessionContext, SessionContextProvider, SessionContextConsumer };
-

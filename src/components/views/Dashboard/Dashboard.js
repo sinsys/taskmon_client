@@ -7,7 +7,7 @@ import HydrationGauge from 'components/widgets/HydrationGauge/HydrationGauge';
 
 import './Dashboard.scss';
 
-function Dashboard() {
+const Dashboard = () => {
 
   let { state } = useContext(UserContext);
 

@@ -23,7 +23,7 @@ let reducer = (state, action) => {
   }
 };
 
-function UserContextProvider(props) {
+const UserContextProvider = (props) => {
   let [state, dispatch] = useReducer(reducer, initialState);
   let value = { state, dispatch };
   return (
@@ -31,7 +31,7 @@ function UserContextProvider(props) {
       {props.children}
     </UserContext.Provider>
   );
-}
+};
 
 let UserContextConsumer = UserContext.Consumer;
 

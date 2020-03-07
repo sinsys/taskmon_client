@@ -7,7 +7,7 @@ import Button from 'components/elements/Button/Button';
 
 import './Login.scss';
 
-function Login() {
+const Login = () => {
 
   let { dispatch } = useContext(UserContext);
 
@@ -68,6 +68,9 @@ function Login() {
             name="submit-btn"
             form="Login_form"
             text="Login"
+            onClick={(e) => {
+              login();
+            }}
           />
           <Button
             id="create-acct-btn"
@@ -87,7 +90,6 @@ function Login() {
             text="Log in as guest"
             onClick={(e) => {
               login();
-              history.push('/dashboard');
             }}
           />
         </form>

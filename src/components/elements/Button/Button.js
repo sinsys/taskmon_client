@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Button.scss';
 
-function Button(props) {
+const Button = (props) => {
   return (
     <button
       {...props}
@@ -10,6 +10,6 @@ function Button(props) {
       {props.text}
     </button>
   )
-}
+};
 
 export default Button;
