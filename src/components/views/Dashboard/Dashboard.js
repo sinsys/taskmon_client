@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { UserContext } from 'contexts/UserContext';
 
 import Timer from 'components/widgets/Timer/Timer';
@@ -12,30 +11,52 @@ const Dashboard = () => {
   let { state } = useContext(UserContext);
 
   return (
-
     <div className="Main Dashboard">
       <h2>{state.name}'s Dashboard</h2>
-      <div className="start-work_wrapper"></div>
       <Timer />
       <HydrationGauge percent={25}/>
 
-      <div class="Tasks-list_wrapper">
-        <h2>Tasks</h2>
-        <div class="Tasks-list">
-          <div class="Task">
-            <p>This is a task title</p>
-            <span>1d 2hr 48m</span>
+      <div className="Upcoming_wrapper">
+        <h2>Upcoming</h2>
+        <div className="Upcoming">
+          <div className="Upcoming-item">
+
+            <div className="Upcoming-summary">
+              <p>This is an upcoming task title</p>
+            </div>
+            
+            <div className="Upcoming-details">
+              <p className="Upcoming-type">Task</p>
+              <p className="Upcoming-due">1d 2hr 48m</p>
+            </div>
+
           </div>
-          <div class="Task">
-            <p>This is a task title</p>
-            <span>1d 2hr 48m</span>
+          <div className="Upcoming-item">
+
+            <div className="Upcoming-summary">
+              <p>This is an upcoming project title</p>
+            </div>
+            
+            <div className="Upcoming-details">
+              <p className="Upcoming-type">Project</p>
+              <p className="Upcoming-due">2d 12hr 1m</p>
+            </div>
+
           </div>
-          <div class="Task">
-            <p>This is a task title</p>
-            <span>1d 2hr 48m</span>
+          <div className="Upcoming-item">
+
+            <div className="Upcoming-summary">
+              <p>This is an upcoming project title</p>
+            </div>
+            
+            <div className="Upcoming-details">
+              <p className="Upcoming-type">Task</p>
+              <p className="Upcoming-due">1w 2d 4hr 42m</p>
+            </div>
+
           </div>
         </div>
-        <div class="Tasks-view-all-btn">
+        <div className="Tasks-view-all-btn">
           <Button
             id="view-all"
             className="view-all-btn"
@@ -45,7 +66,6 @@ const Dashboard = () => {
           />
         </div>
       </div>
-
     </div>
     
   );

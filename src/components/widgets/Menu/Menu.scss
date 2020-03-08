@@ -8,10 +8,10 @@
   flex-direction: column;
   justify-content: center;
   background: $brown;
-  height: 80vh;
+  height: 100%;
   text-align: left;
   padding: 20vh 2rem;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   transition: transform 0.3s ease-in-out;

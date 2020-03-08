@@ -1,5 +1,9 @@
 @import 'themes/_meadow.scss';
 
+.Hydration_wrapper {
+  width: 100%;
+  margin: 0.5rem 0;
+}
 .Hydration-gauge {
   width: 100%;
   background: $blue;
@@ -10,7 +14,7 @@
   justify-content: flex-start;
   align-items: center;
   padding: 0.5rem;
-  margin: 0.25rem 0;
+  margin: 0.5rem 0;
 	background: $light-gray;
 	border-radius: 1rem;
   box-shadow: inset 0 -1px 1px $gray;
