@@ -1,4 +1,4 @@
-@import '../../../themes/_meadow.scss';
+@import 'themes/_meadow.scss';
 
 .submit-btn {
   background: $light-green;
@@ -23,3 +23,16 @@
   background: $error;
   color: $white;
 }
+.cancel-btn:hover {
+  background: $red;
+}
+
+.start-work-btn {
+  background: $light-blue;
+  color: $white;
+}
+
+.start-work-btn:hover {
+  background: $blue;
+}
+

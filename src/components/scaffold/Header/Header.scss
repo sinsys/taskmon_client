@@ -1,60 +1,15 @@
+@import 'themes/_meadow.scss';
+
 /* HEADER ELEMENTS */
 .Header h1 {
   font-size: 1.75rem;
 }
 .Header img {
   height: 2rem;
-  border-radius: 1rem;
 }
 .launch .Header h1 {
   font-size: 2.5rem;
 }
 .launch .Header img {
   height: 4rem;
-  border-radius: 2rem;
-}
-
-.box-shadow-menu {
-  position: relative;
-  padding-left: 2rem;
-  margin-left: auto;
-}
-
-.box-shadow-menu:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: -1rem;
-  width: 2rem;
-  height: 0.15rem;
-  background: black;
-  box-shadow: 
-    0 0.75rem 0 0 black,
-    0 1.5rem 0 0 black;
-  opacity: 0.3;
-}
-
-.close {
-  position: relative;
-  width: 32px;
-  height: 32px;
-  opacity: 0.3;
-  margin-left: auto;
-}
-.close:hover {
-  opacity: 1;
-}
-.close:before, .close:after {
-  position: absolute;
-  left: 15px;
-  content: ' ';
-  height: 33px;
-  width: 2px;
-  background-color: #333;
-}
-.close:before {
-  transform: rotate(45deg);
-}
-.close:after {
-  transform: rotate(-45deg);
 }

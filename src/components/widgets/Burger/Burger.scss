@@ -1,0 +1,51 @@
+@import 'themes/_meadow.scss';
+
+.burger {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.burger:focus {
+  outline: none;
+}
+
+.burger .row {
+  width: 2.5rem;
+  height: 0.4rem;
+  background: $white;
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+
+  &:first-child {
+    transform: rotate(0);
+    &.open {
+      transform: rotate(45deg);
+    }
+  }
+
+  &:nth-child(2) {
+    opacity: 1;
+    transform: translateX(0);
+    &.open {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+  }
+  &:nth-child(3) {
+    transform: rotate(0);
+    &.open {
+      transform: rotate(-45deg);
+    }
+  }
+}

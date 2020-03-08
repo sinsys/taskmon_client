@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Login from './Login';
+import Dashboard from './Dashboard';
 
 import { UserContextProvider } from 'contexts/UserContext';
+import { SessionContextProvider } from 'contexts/SessionContext';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
+
   ReactDOM.render(
-  	<Router>
+    <Router>
       <UserContextProvider>
-        <Login />
+        <SessionContextProvider>
+          <Dashboard />
+        </SessionContextProvider>
       </UserContextProvider>
-  	</Router>,
+    </Router>,
   	div
   );
   ReactDOM.unmountComponentAtNode(div);

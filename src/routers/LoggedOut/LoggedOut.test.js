@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Login from './Login';
+import LoggedOut from './LoggedOut';
 
 import { UserContextProvider } from 'contexts/UserContext';
 
@@ -10,7 +10,7 @@ it('renders without crashing', () => {
   ReactDOM.render(
   	<Router>
       <UserContextProvider>
-        <Login />
+        <LoggedOut />
       </UserContextProvider>
   	</Router>,
   	div
