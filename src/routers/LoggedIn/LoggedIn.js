@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Header from 'components/scaffold/Header/Header';
