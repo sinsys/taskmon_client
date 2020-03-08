@@ -1,0 +1,42 @@
+@import 'themes/_meadow.scss';
+
+.Menu_wrapper {
+  overflow: hidden;
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: $brown;
+  height: 100%;
+  text-align: left;
+  padding: 2rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: transform 0.3s ease-in-out;
+  overflow-y: scroll;
+  transform: translateX(100%);
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  a {
+    font-size: 2rem;
+    text-transform: uppercase;
+    padding: 2rem 0;
+    font-weight: bold;
+    letter-spacing: 0.5rem;
+    color: $white;
+    text-decoration: none;
+    transition: all 0.3s linear;
+
+    &:hover,
+    &.active {
+      color: $light-green;
+      transform: scale(1.05);
+    }
+  }
+
+}

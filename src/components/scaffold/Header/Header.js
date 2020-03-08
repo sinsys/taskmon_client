@@ -1,33 +1,37 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import logo from 'assets/images/logo.svg';
+
+import Burger from 'components/widgets/Burger/Burger';
+
 import { UserContext } from 'contexts/UserContext';
 
 import './Header.scss';
 
 const Header = () => {
 
-  let { state, dispatch } = useContext(UserContext);
+  let userContext = useContext(UserContext);
 
-  let logout = () => dispatch({
+  let logout = () => userContext.dispatch({
     type: "logout"
   });
 
   return (
 
     <header 
-      className={`Header_wrapper ${!state.isLoggedIn ? "launch" : ""}`}
+      className={`Header_wrapper ${!userContext.state.isLoggedIn ? "launch" : ""}`}
     >
       <div className="Header">
         <Link 
           to="/"
           onClick={(e) => logout()}
         >
-          <img src="https://dummyimage.com/64/FFFFFF/000.png&text=Logo" alt="logo" />
+          <img src={logo} alt="logo" />
         </Link>
         <h1>TaskMon</h1>
-        {state.isLoggedIn
-          ? <div href="#" className="box-shadow-menu"></div>
-          : ""
+        {userContext.state.isLoggedIn
+          ? <Burger/>
+          : ''
         }
       </div>
     </header>

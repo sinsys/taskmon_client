@@ -8,30 +8,52 @@ import { getTimeString } from 'helpers/dates.js';
 let SessionContext = createContext();
 
 let initialState = {
-  start: null,
-  end: null,
-  active: false,
-  string: ''
+  menu: {
+    open: false,
+    toggleMenu: () => {}
+  },
+  timer: {
+    start: new Date(),
+    end: null,
+    active: true,
+    string: ''
+  }
 };
 
 let reducer = (state, action) => {
   switch (action.type) {
-    case "start":
+    case "start-session":
       return {
         ...state,
-        start: new Date(),
-        active: true
+        timer: {
+          ...state.timer,
+          start: new Date(),
+          active: true
+        }
       }
-    case "stop":
+    case "stop-session":
       return {
         ...state,
-        end: new Date(),
-        active: false
+        timer: {
+          ...state.timer,
+          end: new Date(),
+          active: false
+        }
       }
     case "update-string":
       return {
         ...state,
-        string: getTimeString("since", state.start)
+        timer: {
+          ...state.timer,
+          string: getTimeString("since", state.timer.start)
+        }
+      }
+    case "toggle-menu":
+      return {
+        ...state,
+        menu: {
+          open: !state.menu.open
+        }
       }
     default:
       return {

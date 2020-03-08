@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Menu from './Menu';
+import Burger from './Burger';
 
 import { SessionContextProvider } from 'contexts/SessionContext';
 
@@ -10,7 +10,7 @@ it('renders without crashing', () => {
   ReactDOM.render(
   	<Router>
       <SessionContextProvider>
-        <Menu />
+        <Burger />
       </SessionContextProvider>
   	</Router>,
   	div

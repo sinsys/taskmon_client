@@ -36,6 +36,7 @@ const Timer = () => {
   }, [state, dispatch]);
 
   return (
+
     <div className="Timer">
       <div className="time">
         {state.string}
@@ -54,6 +55,7 @@ const Timer = () => {
         />
       </div>
     </div>
+    
   );
 };
 
