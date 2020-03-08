@@ -6,7 +6,7 @@ import React, {
 let UserContext = createContext();
 
 let initialState = {
-  name: '',
+  name: 'Guest',
   isLoggedIn: false
 };
 
