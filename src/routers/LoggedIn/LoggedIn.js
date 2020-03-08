@@ -56,5 +56,3 @@ const LoggedIn = () => {
 };
 
 export default LoggedIn;
-
-TodoService.getTodos(req.app.get('db'))

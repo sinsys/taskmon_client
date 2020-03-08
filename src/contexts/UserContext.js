@@ -7,13 +7,15 @@ let UserContext = createContext();
 
 let initialState = {
   name: 'Guest',
-  isLoggedIn: false
+  isLoggedIn: false,
+  hydration: true
 };
 
 let reducer = (state, action) => {
   switch (action.type) {
     case "login":
       return {
+        ...state,
         isLoggedIn: true,
         name: "Guest"
       };
