@@ -36,3 +36,14 @@
   background: $blue;
 }
 
+.view-all-btn {
+  background: $light-green;
+  color: $white;
+  width: 10rem;
+  border-radius: 1rem 0 2rem 0;
+  margin: 0;
+}
+
+.view-all-btn:hover {
+  background: $green;
+}

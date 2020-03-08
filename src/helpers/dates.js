@@ -38,7 +38,7 @@ let getTimeString = (direction, dateObj) => {
   }
   
 
-  return timeArr.join(', ');
+  return timeArr.join(' ');
 };
 
 module.exports = {

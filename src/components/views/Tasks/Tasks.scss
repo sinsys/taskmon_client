@@ -1,0 +1,91 @@
+@import 'themes/_meadow.scss';
+
+.Tasks_wrapper {
+  margin: 1rem 0;
+  background: $light-gray;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 2rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.25);
+}
+.Tasks_wrapper h2 {
+  color: $white;
+  background: $light-green;
+  text-align: center;
+  width: 100%;
+  border-radius: 2rem 2rem 0 0;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.25);
+}
+.Tasks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.Task-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $white;
+  border-radius: 1rem;
+  box-shadow: 0 0.1rem 0.25rem rgba(0,0,0,0.25);
+  margin: 0.5rem;
+}
+.Task-summary h3 {
+  font-size: 1.25rem;
+  padding: 1rem;
+  width: 100%;
+  background: $light-green;
+  color: $black;
+  border-radius: 1rem 1rem 0 0;
+}
+.Task-summary p {
+  color: $dark-gray;
+  padding: 0.5rem 1rem;
+}
+.Task-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 1.25rem;
+  padding: 0;
+}
+.Task-details {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+p.Task-due {
+  margin-left: auto;
+  background: $light-blue;
+  color: $white;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  border-radius: 1rem 0 1rem 0;
+  margin-left: auto;
+  font-size: 0.75rem;
+}
+p.Task-project {
+  margin-right: auto;
+  background: $brown;
+  color: $white;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  border-radius: 0 1rem 0 1rem;
+  font-size: 0.75rem;
+}
+.Tasks-view-all-btn {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

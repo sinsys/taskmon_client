@@ -1,0 +1,78 @@
+@import 'themes/_meadow.scss';
+
+.Dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Upcoming_wrapper {
+  margin: 1rem 0;
+  background: $light-gray;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 2rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.25);
+}
+.Upcoming_wrapper h2 {
+  color: $white;
+  background: $light-green;
+  text-align: center;
+  width: 100%;
+  border-radius: 2rem 2rem 0 0;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.25);
+}
+.Upcoming {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.Upcoming-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: $white;
+  border-radius: 1rem;
+  box-shadow: 0 0.1rem 0.25rem rgba(0,0,0,0.25);
+  margin: 1rem 0;
+}
+.Upcoming-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  padding: 1rem;
+}
+.Upcoming-details {
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+}
+p.Upcoming-type {
+  background: $brown;
+  font-size: 1.25rem;
+  color: $white;
+  margin-left: auto;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 0 1rem 0 0;
+}
+p.Upcoming-due {
+  margin-left: auto;
+  background: $light-blue;
+  color: $white;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  border-radius: 0 0 1rem 0;
+  margin-left: auto;
+  font-size: 0.75rem;
+}
+
+.Tasks-view-all-btn {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

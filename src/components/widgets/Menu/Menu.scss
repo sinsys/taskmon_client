@@ -10,8 +10,8 @@
   background: $brown;
   height: 100%;
   text-align: left;
-  padding: 2rem;
-  position: absolute;
+  padding: 20vh 2rem;
+  position: fixed;
   top: 0;
   right: 0;
   transition: transform 0.3s ease-in-out;
@@ -23,11 +23,11 @@
   }
 
   a {
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
-    padding: 2rem 0;
+    padding: 1rem 0;
     font-weight: bold;
-    letter-spacing: 0.5rem;
+    letter-spacing: 0.25rem;
     color: $white;
     text-decoration: none;
     transition: all 0.3s linear;

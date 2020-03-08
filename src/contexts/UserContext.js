@@ -6,6 +6,7 @@ import React, {
 let UserContext = createContext();
 
 let initialState = {
+  name: '',
   isLoggedIn: false
 };
 
@@ -14,7 +15,7 @@ let reducer = (state, action) => {
     case "login":
       return {
         isLoggedIn: true,
-        name: "Test Account"
+        name: "Guest"
       };
     case "logout":
       return initialState
