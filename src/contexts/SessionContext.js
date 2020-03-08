@@ -17,6 +17,9 @@ let initialState = {
     end: null,
     active: true,
     string: ''
+  },
+  hydration: {
+    percent: 25
   }
 };
 

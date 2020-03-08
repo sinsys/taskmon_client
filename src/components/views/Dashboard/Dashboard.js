@@ -13,13 +13,11 @@ const Dashboard = () => {
 
   return (
 
-    <div className="Main">
-      <p>Welcome {state.name}</p>
+    <div className="Main Dashboard">
+      <h2>{state.name}'s Dashboard</h2>
       <div className="start-work_wrapper"></div>
       <Timer />
-      <p>Testing helper function</p>
-      <HydrationGauge />
-      <Link to="/whereami">Where Am I?</Link>
+      <HydrationGauge percent={25}/>
     </div>
     
   );

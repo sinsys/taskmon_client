@@ -4,10 +4,8 @@ import './HydrationGauge.scss';
 
 const HydrationGauge = (props) => {
   return (
-    <div 
-      className="hydration-gauge"
-    >
-      <p>Hydration Gauge</p>
+    <div className="Hydration-gauge">
+      <span style={{width: `${props.percent}%`}}></span>
     </div>
   )
 };
