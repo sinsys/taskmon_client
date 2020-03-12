@@ -12,10 +12,6 @@ const Header = () => {
 
   let userContext = useContext(UserContext);
 
-  let logout = () => userContext.dispatch({
-    type: "logout"
-  });
-
   return (
 
     <header 
@@ -24,7 +20,6 @@ const Header = () => {
       <div className="Header">
         <Link 
           to="/"
-          onClick={(e) => logout()}
         >
           <img src={logo} alt="logo" />
         </Link>

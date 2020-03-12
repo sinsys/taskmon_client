@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useInputChange } from 'hooks/useInputChange';
 import { UserContext } from 'contexts/UserContext';
+import TokenService from 'services/token-service';
 
 import Button from 'components/elements/Button/Button';
 
@@ -11,8 +12,9 @@ const Login = () => {
 
   let { dispatch } = useContext(UserContext);
 
-  let login = () => dispatch({
-    type: "login"
+  let login = (name) => dispatch({
+    type: "login",
+    data: name
   });
 
   const history = useHistory();
@@ -25,8 +27,15 @@ const Login = () => {
       username: input["email-field"],
       password: input["password-field"]
     };
-    console.log(`Mock form submission:
-    ${JSON.stringify(loginCreds)}`);
+    TokenService.saveAuthToken(
+      TokenService.makeBasicAuthToken(loginCreds.username, loginCreds.password)
+    );
+    console.log(loginCreds.username);
+    const userName = (loginCreds.username === undefined)
+      ? "Guest user"
+      : loginCreds.username;
+
+    login(userName);
   };
 
   return (
@@ -67,9 +76,6 @@ const Login = () => {
           name="submit-btn"
           form="Login_form"
           text="Login"
-          onClick={(e) => {
-            login();
-          }}
         />
         <Button
           id="create-acct-btn"
@@ -88,7 +94,7 @@ const Login = () => {
           name="guest-login-btn"
           text="Log in as guest"
           onClick={(e) => {
-            login();
+            submitForm(e);
           }}
         />
       </form>

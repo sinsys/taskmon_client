@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useInputChange } from 'hooks/useInputChange';
 import { UserContext } from 'contexts/UserContext';
@@ -28,7 +28,6 @@ const Settings = () => {
   return (
 
     <div className="Main Settings">
-      <h2>Settings</h2>
       <form 
         id="Settings_form"
         className="Settings_form base-form"

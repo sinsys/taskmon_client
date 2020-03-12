@@ -13,6 +13,8 @@ import Project from 'components/views/Project/Project';
 import Settings from 'components/views/Settings/Settings';
 import NoMatch from 'components/views/NoMatch/NoMatch';
 
+import PrivateRoute from 'utils/PrivateRoute';
+
 import 'index.scss';
 
 const LoggedIn = () => {
@@ -23,27 +25,27 @@ const LoggedIn = () => {
       <main className="Main_wrapper">
         <Menu />
         <Switch>
-          <Route
+          <PrivateRoute
             exact path={'/'}
             component={Dashboard}
           />
-          <Route
+          <PrivateRoute
             exact path={'/tasks'}
             component={Tasks}
           />
-          <Route
+          <PrivateRoute
             exact path={'/projects'}
             component={Projects}
           />
-          <Route
+          <PrivateRoute
             exact path={'/tasks/:id'}
             component={Task}
           />
-          <Route
+          <PrivateRoute
             exact path={'/projects/:id'}
             component={Project}
           />
-          <Route
+          <PrivateRoute
             exact path={'/settings'}
             component={Settings}
           />

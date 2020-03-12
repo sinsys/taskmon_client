@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import Settings from './Settings';
 
+import { UserContextProvider } from 'contexts/UserContext';
+
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
   	<BrowserRouter>
-  		<Settings />
+      <UserContextProvider>
+        <Settings />
+      </UserContextProvider>
   	</BrowserRouter>,
   	div
   );

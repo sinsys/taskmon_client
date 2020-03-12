@@ -2,25 +2,30 @@ import React, {
   createContext,
   useReducer
 } from "react";
+import TokenService from 'services/token-service';
 
 let UserContext = createContext();
 
 let initialState = {
-  name: 'Guest',
-  isLoggedIn: false,
+  name: '',
+  isLoggedIn: TokenService.hasAuthToken(),
   hydration: true
 };
 
 let reducer = (state, action) => {
+  console.log(action);
   switch (action.type) {
     case "login":
       return {
         ...state,
         isLoggedIn: true,
-        name: "Guest"
+        name: action.data
       };
     case "logout":
-      return initialState
+      TokenService.clearAuthToken();
+      return {
+        ...initialState
+      }
     default:
       return initialState
   }

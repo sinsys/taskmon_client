@@ -8,6 +8,8 @@ import Login from 'components/views/Login/Login';
 import Signup from 'components/views/Signup/Signup';
 import NoMatch from 'components/views/NoMatch/NoMatch';
 
+import PublicOnlyRoute from 'utils/PublicOnlyRoute';
+
 import 'index.scss';
 
 const LoggedOut = () => {
@@ -17,11 +19,11 @@ const LoggedOut = () => {
       <Header />
       <main className="Main_wrapper">
         <Switch>
-          <Route
+          <PublicOnlyRoute
             exact path={'/'}
             component={Login}
           />
-          <Route
+          <PublicOnlyRoute
             exact path={'/signup'}
             component={Signup}
           />
