@@ -13,18 +13,18 @@ let initialState = {
 };
 
 let reducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case "login":
       return {
-        ...state,
         isLoggedIn: true,
         name: action.data
       };
     case "logout":
       TokenService.clearAuthToken();
       return {
-        ...initialState
+        name: '',
+        isLoggedIn: false,
+        hydration: true
       }
     default:
       return initialState

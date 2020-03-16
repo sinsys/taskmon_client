@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useInputChange } from 'hooks/useInputChange';
 import { UserContext } from 'contexts/UserContext';
 import TokenService from 'services/token-service';
+import AuthApiService from 'services/auth-api-service';
 
 import Button from 'components/elements/Button/Button';
 
@@ -21,30 +22,37 @@ const Login = () => {
 
   const [input, handleInputChange] = useInputChange();
 
-  const submitForm = (e) => {
+  const submitJwtAuth = (e) => {
     e.preventDefault();
     const loginCreds = {
-      username: input["email-field"],
+      user_name: input["email-field"],
       password: input["password-field"]
     };
-    TokenService.saveAuthToken(
-      TokenService.makeBasicAuthToken(loginCreds.username, loginCreds.password)
-    );
-    console.log(loginCreds.username);
-    const userName = (loginCreds.username === undefined)
-      ? "Guest user"
-      : loginCreds.username;
 
-    login(userName);
-  };
-
+    AuthApiService.postLogin({
+      user_name: loginCreds.user_name,
+      password: loginCreds.password
+    })
+      .then(res => {
+        TokenService.saveAuthToken(res.authToken);
+        const userName = (loginCreds.user_name === undefined)
+          ? "Guest user"
+          : loginCreds.user_name;
+        loginCreds.user_name = '';
+        loginCreds.password = '';
+        login(userName);
+      })
+      .catch(res => {
+        console.log('Something went wrong');
+      })
+  }
   return (
 
     <div className="Main">
       <form 
         id="Login_form"
         className="Login_form base-form"
-        onSubmit={(e) => submitForm(e)}
+        onSubmit={(e) => submitJwtAuth(e)}
       >
         <h2 className="Main-heading">
           Log In
@@ -94,7 +102,7 @@ const Login = () => {
           name="guest-login-btn"
           text="Log in as guest"
           onClick={(e) => {
-            submitForm(e);
+            submitJwtAuth(e)
           }}
         />
       </form>

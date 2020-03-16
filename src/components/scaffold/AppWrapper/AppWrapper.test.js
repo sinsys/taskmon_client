@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Tasks from './Tasks';
+import AppWrapper from './AppWrapper';
 
-import { UserContextProvider } from 'contexts/UserContext';
 import AuthedContextProvider from 'contexts/AuthedContextProvider';
 
 it('renders without crashing', () => {
@@ -11,11 +10,9 @@ it('renders without crashing', () => {
 
   ReactDOM.render(
     <Router>
-      <UserContextProvider>
-        <AuthedContextProvider>
-          <Tasks />
-        </AuthedContextProvider>
-      </UserContextProvider>
+      <AuthedContextProvider>
+        <AppWrapper />
+      </AuthedContextProvider>
     </Router>,
   	div
   );

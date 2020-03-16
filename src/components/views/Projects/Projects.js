@@ -1,55 +1,87 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+
 import { UserContext } from 'contexts/UserContext';
-import Button from 'components/elements/Button/Button';
+import { ItemsContext } from 'contexts/ItemsContext';
+
+import { getTimeString } from 'helpers/helpers';
 
 import './Projects.scss';
 
 const Projects = () => {
 
-  let { state } = useContext(UserContext);
+  let userContext = useContext(UserContext);
+  let itemsContext = useContext(ItemsContext);
+  
+  let [items, setItems] = useState([]);
+
+  useEffect(() => {
+
+    const constructItems = (arr) => {
+      return arr.map((item => {
+
+        return { 
+          ...item,
+          date_due_string: getTimeString("until", new Date(item.date_due)),
+          task_count: (itemsContext.state.tasks.filter((task => {
+            return task.project_id === item.id
+          })).length !== 0)
+            ? itemsContext.state.tasks.filter((task => {
+                return task.project_id === item.id
+              })).length
+            : 0
+        }
+      }))
+    };
+
+    setItems(
+      constructItems(itemsContext.state.projects)
+    );
+
+    let timer = null;
+    timer = setInterval(() => {
+      setItems(
+        constructItems(itemsContext.state.projects)
+      );
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
 
     <div className="Main">
-      <h2>Projects for {state.name}</h2>
+      <h2>{userContext.state.name}'s Tasks</h2>
       <div className="Projects_wrapper">
         <h2>Projects</h2>
         <div className="Projects">
-          <div className="Project-item">
-
-            <div className="Project-summary">
-            <h3>This is a Project title</h3>
-              <p>This is an upcoming Project summary. This is an upcoming Project summary. This is an upcoming Project summary. </p>
-            </div>
-
-            <div className="Project-details">
-              <p className="Project-project">3 Tasks</p>
-              <p className="Project-due">1d 2hr 48m</p>
-            </div>
-
-          </div>
-
-          <div className="Project-item">
-
-            <div className="Project-summary">
-            <h3>This is a Project title</h3>
-              <p>This is an upcoming Project summary. This is an upcoming Project summary. This is an upcoming Project summary. </p>
-            </div>
-
-            <div className="Project-details">
-              <p className="Project-due">1d 2hr 48m</p>
-            </div>
-
-          </div>
-        </div>
-        <div className="Projects-view-all-btn">
-          <Button
-            id="view-more"
-            className="view-all-btn"
-            type="button"
-            name="view-more"
-            text="View More"
-          />
+        { items
+            .map((item) => {
+              return (
+                <div 
+                  className={`Task-item ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
+                  key={`${item.id}-${item.type}`}
+                >
+                  <div className="Task-summary">
+                    <h3>{item.title}</h3>
+                    <p>{item.content}</p>
+                  </div>
+      
+                  <div className="Task-details">
+                    { (item.task_count !== 0) 
+                      ? <p className="Task-project">
+                          {`${item.task_count} ${(item.task_count === 1) ? 'task' : 'tasks'}`}
+                        </p>
+                      : ""
+                    }
+                    <p 
+                      className={`Task-due ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
+                    >
+                      {item.date_due_string}</p>
+                  </div>
+                </div>
+              );
+          })}
         </div>
       </div>
     </div>
