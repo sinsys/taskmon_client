@@ -21,32 +21,31 @@ const Login = () => {
   const history = useHistory();
 
   const [input, handleInputChange] = useInputChange();
+
   const submitJwtAuth = (e) => {
     e.preventDefault();
     const loginCreds = {
       user_name: input["email-field"],
       password: input["password-field"]
     };
+
     AuthApiService.postLogin({
       user_name: loginCreds.user_name,
       password: loginCreds.password
     })
       .then(res => {
-        TokenService.saveAuthToken(res.authToken)
+        TokenService.saveAuthToken(res.authToken);
         const userName = (loginCreds.user_name === undefined)
           ? "Guest user"
           : loginCreds.user_name;
         loginCreds.user_name = '';
         loginCreds.password = '';
         login(userName);
-        
       })
       .catch(res => {
-      
+        console.log('Something went wrong');
       })
   }
-
-
   return (
 
     <div className="Main">

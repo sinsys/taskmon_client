@@ -46,7 +46,7 @@ const Settings = () => {
           defaultValue={state.name}
           onChange={handleInputChange}
         />
-        <div class="form-checkbox-wrapper">
+        <div className="form-checkbox-wrapper">
           <input 
             type="checkbox" 
             id="hydration-toggle" 

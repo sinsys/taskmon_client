@@ -36,14 +36,14 @@
   background: $blue;
 }
 
-.view-all-btn {
+.view-more-btn {
   background: $light-green;
   color: $white;
   width: 10rem;
-  border-radius: 1rem 0 2rem 0;
+  border-radius: 1rem 1rem 0 0;
   margin: 0;
 }
 
-.view-all-btn:hover {
+.view-more-btn:hover {
   background: $green;
 }

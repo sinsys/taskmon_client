@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Dashboard from './Dashboard';
 
 import { UserContextProvider } from 'contexts/UserContext';
-import { SessionContextProvider } from 'contexts/SessionContext';
+import AuthedContextProvider from 'contexts/AuthedContextProvider';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -12,9 +12,9 @@ it('renders without crashing', () => {
   ReactDOM.render(
     <Router>
       <UserContextProvider>
-        <SessionContextProvider>
+        <AuthedContextProvider>
           <Dashboard />
-        </SessionContextProvider>
+        </AuthedContextProvider>
       </UserContextProvider>
     </Router>,
   	div

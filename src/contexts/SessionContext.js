@@ -3,7 +3,7 @@ import React, {
   useReducer
 } from "react";
 
-import { getTimeString } from 'helpers/dates.js';
+import { getTimeString } from 'helpers/helpers';
 
 let SessionContext = createContext();
 

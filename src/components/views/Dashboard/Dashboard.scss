@@ -33,42 +33,57 @@
 .Upcoming-item {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background: $white;
   border-radius: 1rem;
   box-shadow: 0 0.1rem 0.25rem rgba(0,0,0,0.25);
-  margin: 1rem 0;
+  margin: 1.5rem 0;
+  &.past-due {
+    background: $pink;
+    color: $white;
+  }
 }
 .Upcoming-summary {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
   font-size: 1.25rem;
+}
+.Upcoming-title {
   padding: 1rem;
 }
 .Upcoming-details {
   margin: 0;
   padding: 0;
   margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-p.Upcoming-type {
+span.Upcoming-type {
   background: $brown;
   font-size: 1.25rem;
   color: $white;
   margin-left: auto;
   text-align: center;
   padding: 0.5rem;
-  border-radius: 0 1rem 0 0;
+  border-radius: 0 1rem 0 1rem;
+  text-transform: capitalize;
 }
 p.Upcoming-due {
-  margin-left: auto;
-  background: $light-blue;
+  background: $light-green;
   color: $white;
   padding: 0.5rem;
-  padding-left: 1rem;
-  border-radius: 0 0 1rem 0;
+  border-radius: 1rem 0 1rem 0;
   margin-left: auto;
   font-size: 0.75rem;
+  width: 10rem;
+  text-align: center;
+  &.past-due {
+    background: $white;
+    color: $error;
+  }
 }
 
 .Tasks-view-all-btn {
@@ -76,3 +91,4 @@ p.Upcoming-due {
   display: flex;
   justify-content: flex-end;
 }
+

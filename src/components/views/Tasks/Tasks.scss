@@ -37,12 +37,24 @@
   border-radius: 1rem;
   box-shadow: 0 0.1rem 0.25rem rgba(0,0,0,0.25);
   margin: 0.5rem;
+  &.past-due {
+    background: $pink;
+    color: $white;
+    .Task-summary p {
+      color: $white;
+    }
+    .Task-summary h3 {
+      background: $dark-gray;
+      color: $white;
+    }
+  }
 }
+
 .Task-summary h3 {
   font-size: 1.25rem;
   padding: 1rem;
   width: 100%;
-  background: $light-green;
+  background: $light-blue;
   color: $black;
   border-radius: 1rem 1rem 0 0;
 }
@@ -57,6 +69,9 @@
   justify-content: flex-start;
   font-size: 1.25rem;
   padding: 0;
+  p {
+    padding: 1.5rem 1rem;
+  }
 }
 .Task-details {
   margin: 0;
@@ -67,13 +82,22 @@
 }
 p.Task-due {
   margin-left: auto;
-  background: $light-blue;
+  background: $light-green;
   color: $white;
   padding: 0.5rem;
   padding-left: 1rem;
   border-radius: 1rem 0 1rem 0;
   margin-left: auto;
+  width: 10rem;
+  text-align: center;
   font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.past-due {
+    background: $white;
+    color: $error;
+  }
 }
 p.Task-project {
   margin-right: auto;
@@ -83,6 +107,7 @@ p.Task-project {
   padding-left: 1rem;
   border-radius: 0 1rem 0 1rem;
   font-size: 0.75rem;
+  text-align: center;
 }
 .Tasks-view-all-btn {
   width: 100%;

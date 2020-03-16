@@ -1,9 +1,9 @@
 import TokenService from '../services/token-service';
 import config from '../config';
 
-const ProjectsApiService = {
-  getProjects: () => {
-    return fetch(`${config.API_ENDPOINT}/projects`, {
+const TasksApiService = {
+  getTasks: () => {
+    return fetch(`${config.API_ENDPOINT}/tasks`, {
       headers: {
         'authorization': `Bearer ${TokenService.getAuthToken()}`
       }
@@ -14,8 +14,8 @@ const ProjectsApiService = {
           : res.json()
       )
   },
-  getProject: (project_id) => {
-    return fetch(`${config.API_ENDPOINT}/projects/${project_id}`, {
+  getTask: (task_id) => {
+    return fetch(`${config.API_ENDPOINT}/tasks/${task_id}`, {
       headers: {
         'authorization': `Bearer ${TokenService.getAuthToken()}`
       }
@@ -59,4 +59,4 @@ const ProjectsApiService = {
   // }
 }
 
-export default ProjectsApiService;
+export default TasksApiService;
