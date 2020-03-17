@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-
+import { useHistory } from 'react-router-dom';
 import { UserContext } from 'contexts/UserContext';
 import { ItemsContext } from 'contexts/ItemsContext';
 
@@ -16,6 +16,8 @@ const Dashboard = () => {
   let itemsContext = useContext(ItemsContext);
 
   let [items, setItems] = useState([]);
+
+  const history = useHistory();
 
   useEffect(() => {
 
@@ -41,24 +43,28 @@ const Dashboard = () => {
     
     return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [itemsContext.state.fetched]);
 
   return (
     <div className="Main Dashboard">
-      <h2>{userContext.state.name}'s Dashboard</h2>
+      <h2>{userContext.state.nickname}'s Dashboard</h2>
       <Timer />
-      <HydrationGauge percent={25}/>
-
+      {userContext.state.hydration
+        ? <HydrationGauge percent={25}/>
+        : ''
+      }
       <div className="Upcoming_wrapper">
         <h2>Upcoming</h2>
         <div className="Upcoming">
-
           { items
             .map((item) => {
               return (
                 <div 
                   className={`Upcoming-item ${item.date_due_string === 'Past due' ? 'past-due' : ''}`} 
                   key={`${item.id}-${item.type}`}
+                  onClick={() => {
+                    history.push(`/${item.type}s/${item.id}`)
+                  }}
                 >
                   <div className="Upcoming-summary">
                     <span className="Upcoming-title">{item.title}</span>

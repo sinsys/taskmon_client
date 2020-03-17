@@ -3,26 +3,40 @@ import { useHistory } from 'react-router-dom';
 import { useInputChange } from 'hooks/useInputChange';
 import { UserContext } from 'contexts/UserContext';
 
+import SettingsApiService from 'services/settings-service';
 import Button from 'components/elements/Button/Button';
 
 import './Settings.scss';
 
 const Settings = () => {
 
-  let { state } = useContext(UserContext);
+  let { state, dispatch } = useContext(UserContext);
 
+  let login = (settings) => dispatch({
+    type: "login",
+    data: settings
+  });
+  
   const [input, handleInputChange] = useInputChange();
 
   const history = useHistory();
 
   const submitForm = (e) => {
     e.preventDefault();
-    const loginCreds = {
-      username: input["email-field"],
-      password: input["password-field"]
+    const settings = {};
+    if ( input["nickname-field"] !== undefined ) {
+      settings.nickname = input["nickname-field"]
     };
-    console.log(`Mock form submission:
-    ${JSON.stringify(loginCreds)}`);
+    if ( input["hydration-checkbox"] !== undefined ) {
+      settings.hydration = input["hydration-checkbox"]
+    };
+    SettingsApiService.updateSettings(settings)
+      .then(res => {
+        SettingsApiService.getSettings()
+          .then(res => {
+            login(res);
+          });
+      });
   };
 
   return (
@@ -34,33 +48,29 @@ const Settings = () => {
         onSubmit={(e) => submitForm(e)}
       >
         <h2 className="Main-heading">
-          {`${state.name}'s Settings`}
+          {`${state.nickname}'s Settings`}
         </h2>
-        <label htmlFor="email-field">
+        <label htmlFor="nickname-field">
           Display Name
         </label>
         <input 
           type="text" 
-          id="name-field" 
-          name="name-field"  
-          defaultValue={state.name}
+          id="nickname-field" 
+          name="nickname-field"  
+          defaultValue={state.nickname}
           onChange={handleInputChange}
         />
         <div className="form-checkbox-wrapper">
           <input 
             type="checkbox" 
-            id="hydration-toggle" 
-            name="hydration-toggle" 
-            onChange={handleInputChange}
-            defaultChecked={state.hydration
-              ? "checked"
-              : ""
-            }
+            id="hydration-checkbox" 
+            name="hydration-checkbox" 
+            onClick={handleInputChange}
+            defaultChecked={state.hydration}
           />
-          <label htmlFor="hydration-toggle">
+          <label htmlFor="hydration-checkbox">
             Show Hydration Gauge
           </label>
-
         </div>
 
         <Button

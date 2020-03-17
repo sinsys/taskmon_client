@@ -46,12 +46,12 @@ const Projects = () => {
     
     return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [itemsContext.state.fetched]);
 
   return (
 
     <div className="Main">
-      <h2>{userContext.state.name}'s Tasks</h2>
+      <h2>{userContext.state.nickname}'s Projects</h2>
       <div className="Projects_wrapper">
         <h2>Projects</h2>
         <div className="Projects">
@@ -59,23 +59,23 @@ const Projects = () => {
             .map((item) => {
               return (
                 <div 
-                  className={`Task-item ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
+                  className={`Project-item ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
                   key={`${item.id}-${item.type}`}
                 >
-                  <div className="Task-summary">
+                  <div className="Project-summary">
                     <h3>{item.title}</h3>
                     <p>{item.content}</p>
                   </div>
       
-                  <div className="Task-details">
+                  <div className="Project-details">
                     { (item.task_count !== 0) 
-                      ? <p className="Task-project">
+                      ? <p className="Project-project">
                           {`${item.task_count} ${(item.task_count === 1) ? 'task' : 'tasks'}`}
                         </p>
                       : ""
                     }
                     <p 
-                      className={`Task-due ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
+                      className={`Project-due ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
                     >
                       {item.date_due_string}</p>
                   </div>
