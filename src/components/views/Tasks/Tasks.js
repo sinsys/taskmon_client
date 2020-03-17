@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { UserContext } from 'contexts/UserContext';
 import { ItemsContext } from 'contexts/ItemsContext';
@@ -14,6 +15,8 @@ const Tasks = () => {
   
   let [items, setItems] = useState([]);
 
+  const history = useHistory();
+  
   useEffect(() => {
 
     const constructItems = (arr) => {
@@ -41,11 +44,11 @@ const Tasks = () => {
     
     return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [itemsContext.state.fetched]);
   
   return (
     <div className="Main Tasks">
-      <h2>{userContext.state.name}'s Tasks</h2>
+      <h2>{userContext.state.nickname}'s Tasks</h2>
       <div className="Tasks_wrapper">
         <h2>Tasks</h2>
         <div className="Tasks">
@@ -55,6 +58,9 @@ const Tasks = () => {
                 <div 
                   className={`Task-item ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
                   key={`${item.id}-${item.type}`}
+                  onClick={() => {
+                    history.push(`/tasks/${item.id}`);
+                  }}
                 >
                   <div className="Task-summary">
                     <h3>{item.title}</h3>

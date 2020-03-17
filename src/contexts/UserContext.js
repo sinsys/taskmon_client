@@ -7,24 +7,28 @@ import TokenService from 'services/token-service';
 let UserContext = createContext();
 
 let initialState = {
-  name: '',
-  isLoggedIn: TokenService.hasAuthToken(),
-  hydration: true
+  nickname: '',
+  isLoggedIn: false,
+  hydration: null,
+  fetched: false
 };
 
 let reducer = (state, action) => {
   switch (action.type) {
     case "login":
       return {
+        nickname: action.data.nickname,
         isLoggedIn: true,
-        name: action.data
+        hydration: action.data.hydration,
+        fetched: true
       };
     case "logout":
       TokenService.clearAuthToken();
       return {
         name: '',
         isLoggedIn: false,
-        hydration: true
+        hydration: true,
+        fetched: false
       }
     default:
       return initialState

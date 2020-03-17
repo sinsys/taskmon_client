@@ -46,10 +46,7 @@
   color: $black;
   border-radius: 1rem 1rem 0 0;
 }
-.Project-summary p {
-  color: $dark-gray;
-  padding: 0.5rem 1rem;
-}
+
 .Project-summary {
   display: flex;
   flex-direction: column;
@@ -57,6 +54,10 @@
   justify-content: flex-start;
   font-size: 1.25rem;
   padding: 0;
+  p {
+    padding: 1.5rem 1rem;
+    color: $dark-gray;
+  }
 }
 .Project-details {
   margin: 0;

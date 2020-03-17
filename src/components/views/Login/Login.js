@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useInputChange } from 'hooks/useInputChange';
+
 import { UserContext } from 'contexts/UserContext';
+
 import TokenService from 'services/token-service';
 import AuthApiService from 'services/auth-api-service';
+import SettingsApiService from 'services/settings-service';
 
 import Button from 'components/elements/Button/Button';
 
@@ -13,9 +16,9 @@ const Login = () => {
 
   let { dispatch } = useContext(UserContext);
 
-  let login = (name) => dispatch({
+  let login = (settings) => dispatch({
     type: "login",
-    data: name
+    data: settings
   });
 
   const history = useHistory();
@@ -35,12 +38,12 @@ const Login = () => {
     })
       .then(res => {
         TokenService.saveAuthToken(res.authToken);
-        const userName = (loginCreds.user_name === undefined)
-          ? "Guest user"
-          : loginCreds.user_name;
         loginCreds.user_name = '';
         loginCreds.password = '';
-        login(userName);
+        SettingsApiService.getSettings()
+          .then(res => {
+            login(res);
+          })
       })
       .catch(res => {
         console.log('Something went wrong');

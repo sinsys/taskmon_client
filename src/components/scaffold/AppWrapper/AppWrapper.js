@@ -2,14 +2,26 @@ import React, { useContext, useEffect } from 'react';
 
 import ProjectsApiService from 'services/projects-service';
 import TasksApiService from 'services/tasks-service';
+import SettingsApiService from 'services/settings-service';
 
 import { ItemsContext } from 'contexts/ItemsContext';
+import { UserContext } from 'contexts/UserContext';
 
 import TokenService from 'services/token-service';
+
+
 
 const AppWrapper = (props) => {
 
   let itemsContext = useContext(ItemsContext);
+  let userContext = useContext(UserContext);
+
+  let { dispatch } = useContext(UserContext);
+
+  let login = (settings) => dispatch({
+    type: "login",
+    data: settings
+  });
 
   useEffect(() => {
     if ( !itemsContext.state.fetched && TokenService.hasAuthToken() ) {
@@ -24,6 +36,12 @@ const AppWrapper = (props) => {
           });
         });
     };
+    if ( !userContext.state.fetched && TokenService.hasAuthToken() ) {
+      SettingsApiService.getSettings()
+        .then(res => {
+          login(res);
+        })
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
