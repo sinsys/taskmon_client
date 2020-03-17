@@ -1,4 +1,4 @@
-# TaskMon - Task Monitor/Monster
+# TaskMon - Task Monitor
 
 ## Description
 
