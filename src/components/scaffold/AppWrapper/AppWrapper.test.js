@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppWrapper from './AppWrapper';
 
+import { UserContextProvider } from 'contexts/UserContext';
 import AuthedContextProvider from 'contexts/AuthedContextProvider';
 
 it('renders without crashing', () => {
@@ -10,9 +11,11 @@ it('renders without crashing', () => {
 
   ReactDOM.render(
     <Router>
-      <AuthedContextProvider>
-        <AppWrapper />
-      </AuthedContextProvider>
+      <UserContextProvider>
+        <AuthedContextProvider>
+          <AppWrapper />
+        </AuthedContextProvider>
+      </UserContextProvider>
     </Router>,
   	div
   );

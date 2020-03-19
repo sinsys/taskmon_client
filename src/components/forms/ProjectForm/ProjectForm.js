@@ -63,29 +63,6 @@ const ProjectForm = () => {
           name="content" 
           onChange={handleInputChange}
         ></textarea>
-
-        {/* <label htmlFor="project-select">
-        Project:
-          <Checkbox 
-            name="project-checkbox"
-            onChange={handleInputChange}
-          />          
-        </label>
-        
-        <select
-          disabled={!input["project-checkbox"]}
-        >
-          <option>-- No project --</option>
-          { itemsContext.state.projects.map(project => {
-            return (
-              <option
-                key={project.id}
-              >
-                {project.title}
-              </option>
-            )
-          })}
-        </select> */}
         <label htmlFor="date-due-picker">
           Date Due: 
         </label>

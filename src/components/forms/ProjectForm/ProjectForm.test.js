@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import ProjectForm from './ProjectForm';
 
+import AuthedContextProvider from 'contexts/AuthedContextProvider';
 import { UserContextProvider } from 'contexts/UserContext';
 
 it('renders without crashing', () => {
@@ -10,7 +11,9 @@ it('renders without crashing', () => {
   ReactDOM.render(
   	<Router>
       <UserContextProvider>
-        <ProjectForm />
+        <AuthedContextProvider>
+          <ProjectForm />
+        </AuthedContextProvider>
       </UserContextProvider>
   	</Router>,
   	div

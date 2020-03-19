@@ -10,7 +10,7 @@ import { getTimeString } from 'helpers/helpers';
 
 import './Project.scss';
 
-const Task = (props) => {
+const Project = (props) => {
 
   let [project, setProject] = useState({});
   let itemsContext = useContext(ItemsContext);
@@ -139,4 +139,4 @@ const Task = (props) => {
 
 };
 
-export default Task;
+export default Project;

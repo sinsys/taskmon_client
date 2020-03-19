@@ -1,10 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 
-// Importing these globally for our date-pickers
-// They use Context to have access to their utility functions
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
-
 import ProjectsApiService from 'services/projects-service';
 import TasksApiService from 'services/tasks-service';
 import SettingsApiService from 'services/settings-service';
@@ -12,7 +7,7 @@ import SettingsApiService from 'services/settings-service';
 import { ItemsContext } from 'contexts/ItemsContext';
 import { UserContext } from 'contexts/UserContext';
 
-import { addAdditionalProperties } from 'helpers/helpers';
+import { addAdditionalProperties as modifyQuery } from 'helpers/helpers';
 
 import TokenService from 'services/token-service';
 
@@ -37,7 +32,7 @@ const AppWrapper = (props) => {
 
           itemsContext.dispatch({
             type: 'set-items',
-            payload: addAdditionalProperties(projects, tasks)
+            payload: modifyQuery(projects, tasks)
           });
 
           login(settings);
@@ -49,11 +44,9 @@ const AppWrapper = (props) => {
   }, [itemsContext.state.fetched]);
 
   return (
-    <MuiPickersUtilsProvider utils={MomentUtils}>
-      <main className="Main_wrapper">
-        { props.children }
-      </main>
-    </MuiPickersUtilsProvider>
+    <main className="Main_wrapper">
+      { props.children }
+    </main>
   );
 
 };

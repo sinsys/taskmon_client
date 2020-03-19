@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import TaskForm from './TaskForm';
 
+import AuthedContextProvider from 'contexts/AuthedContextProvider';
 import { UserContextProvider } from 'contexts/UserContext';
 
 it('renders without crashing', () => {
@@ -10,7 +11,9 @@ it('renders without crashing', () => {
   ReactDOM.render(
   	<Router>
       <UserContextProvider>
-        <TaskForm />
+        <AuthedContextProvider>
+          <TaskForm />
+        </AuthedContextProvider>
       </UserContextProvider>
   	</Router>,
   	div
