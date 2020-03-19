@@ -3,7 +3,7 @@ import config from '../config';
 const AuthApiService = {
   postLogin: (credentials) => {
     return (
-      fetch(`${config.REACT_APP_API_ENDPOINT}/auth/login`, {
+      fetch(`${config.API_ENDPOINT}/auth/login`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json'
