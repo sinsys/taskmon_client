@@ -97,7 +97,7 @@ const addAdditionalProperties = (projects, tasks) => {
   }
 };
 
-exports = {
+export {
   getTimeString,
   updateTimeStrings,
   addAdditionalProperties
