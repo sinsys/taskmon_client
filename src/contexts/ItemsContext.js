@@ -9,6 +9,7 @@ let initialState = {
   fetched: false,
   projects: [],
   tasks: [],
+  all: [],
   error: null
 };
 
@@ -19,7 +20,28 @@ let reducer = (state, action) => {
         ...state,
         fetched: true,
         projects: action.payload.projects,
-        tasks: action.payload.tasks
+        tasks: action.payload.tasks,
+        all: action.payload.all
+      }
+    case 'set-tasks':
+      return {
+        ...state,
+        tasks: action.payload
+      }
+    case 'set-projects':
+      return {
+        ...state,
+        projects: action.payload
+      }
+    case 'set-all':
+      return {
+        ...state,
+        all: action.payload
+      }
+    case 'refetch':
+      return {
+        ...state,
+        fetched: false
       }
     case 'set-error':
       return {

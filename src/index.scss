@@ -39,10 +39,14 @@ textarea,
 button {
   margin: .5rem 0;
 }
-
+textarea {
+  resize: none;
+}
 input[type="text"],
 input[type="email"],
 input[type="password"],
+textarea,
+select,
 button {
   padding: 0.75rem 1rem;
   border-radius: 1.5rem;
@@ -57,13 +61,19 @@ button {
   cursor: pointer;
   transition: all 0.3s ease,;
 }
+select:disabled {
+  border: 2px solid $light-gray;
+}
 button:hover {
   transform: scale(1.05);
 }
 input[type="datetime-local"] {
   width: 100%;
 }
-
+.MuiInputBase-input,
+select {
+  cursor: pointer;
+}
 /* SCAFFOLDING */
 
 .Header_wrapper,

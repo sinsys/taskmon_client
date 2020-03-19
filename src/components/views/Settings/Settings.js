@@ -35,6 +35,7 @@ const Settings = () => {
         SettingsApiService.getSettings()
           .then(res => {
             login(res);
+            history.goBack();
           });
       });
   };

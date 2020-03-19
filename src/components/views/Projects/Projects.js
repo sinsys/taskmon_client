@@ -1,9 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
+import Button from 'components/elements/Button/Button';
+
+import { useHistory } from 'react-router-dom';
 import { UserContext } from 'contexts/UserContext';
 import { ItemsContext } from 'contexts/ItemsContext';
 
-import { getTimeString } from 'helpers/helpers';
+import { updateTimeStrings } from 'helpers/helpers';
 
 import './Projects.scss';
 
@@ -12,55 +15,60 @@ const Projects = () => {
   let userContext = useContext(UserContext);
   let itemsContext = useContext(ItemsContext);
   
-  let [items, setItems] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
 
-    const constructItems = (arr) => {
-      return arr.map((item => {
-
-        return { 
-          ...item,
-          date_due_string: getTimeString("until", new Date(item.date_due)),
-          task_count: (itemsContext.state.tasks.filter((task => {
-            return task.project_id === item.id
-          })).length !== 0)
-            ? itemsContext.state.tasks.filter((task => {
-                return task.project_id === item.id
-              })).length
-            : 0
-        }
-      }))
-    };
-
-    setItems(
-      constructItems(itemsContext.state.projects)
-    );
-
     let timer = null;
-    timer = setInterval(() => {
-      setItems(
-        constructItems(itemsContext.state.projects)
-      );
-    }, 1000);
-    
+
+    if ( itemsContext.state.fetched ) {
+
+      itemsContext.dispatch({
+        type: 'set-projects',
+        payload: updateTimeStrings(itemsContext.state.projects)
+      });
+  
+      
+      timer = setInterval(() => {
+        itemsContext.dispatch({
+          type: 'set-projects',
+          payload: updateTimeStrings(itemsContext.state.projects)
+        });
+      }, 1000);
+      
+    }
     return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsContext.state.fetched]);
 
   return (
 
-    <div className="Main">
+    <div className="Main Projects">
       <h2>{userContext.state.nickname}'s Projects</h2>
       <div className="Projects_wrapper">
-        <h2>Projects</h2>
+        <div className="Projects-header">
+          <h2>Projects</h2>
+          <Button
+            id="add-btn"
+            className="add-item-btn"
+            type="button"
+            name="add-btn"
+            text="+ New"
+            onClick={(e) => {
+              history.push('/projects/add')
+            }}
+          />
+        </div>
         <div className="Projects">
-        { items
+        { itemsContext.state.projects
             .map((item) => {
               return (
                 <div 
                   className={`Project-item ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
                   key={`${item.id}-${item.type}`}
+                  onClick={() => {
+                    history.push(`/${item.type}/${item.id}`)
+                  }}
                 >
                   <div className="Project-summary">
                     <h3>{item.title}</h3>
@@ -77,7 +85,11 @@ const Projects = () => {
                     <p 
                       className={`Project-due ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
                     >
-                      {item.date_due_string}</p>
+                      {item.completed
+                        ? "Completed"
+                        : item.date_due_string
+                      }
+                    </p>
                   </div>
                 </div>
               );

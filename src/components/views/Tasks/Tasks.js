@@ -1,10 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import { UserContext } from 'contexts/UserContext';
 import { ItemsContext } from 'contexts/ItemsContext';
 
-import { getTimeString } from 'helpers/helpers';
+import Button from 'components/elements/Button/Button';
+
+import { updateTimeStrings } from 'helpers/helpers';
 
 import './Tasks.scss';
 
@@ -13,35 +14,27 @@ const Tasks = () => {
   let userContext = useContext(UserContext);
   let itemsContext = useContext(ItemsContext);
   
-  let [items, setItems] = useState([]);
-
   const history = useHistory();
-  
+
   useEffect(() => {
 
-    const constructItems = (arr) => {
-      return arr.map((item => {
-        return { 
-          ...item,
-          date_due_string: getTimeString("until", new Date(item.date_due)),
-          project_name: (item.project_id)
-            ? itemsContext.state.projects.find(p => p.id === item.project_id).title
-            : null
-        }
-      }))
-    };
-
-    setItems(
-      constructItems(itemsContext.state.tasks)
-    );
-
     let timer = null;
-    timer = setInterval(() => {
-      setItems(
-        constructItems(itemsContext.state.tasks)
-      );
-    }, 1000);
-    
+
+    if ( itemsContext.state.fetched ) {
+
+      itemsContext.dispatch({
+        type: 'set-tasks',
+        payload: updateTimeStrings(itemsContext.state.tasks)
+      });
+  
+      timer = setInterval(() => {
+        itemsContext.dispatch({
+          type: 'set-tasks',
+          payload: updateTimeStrings(itemsContext.state.tasks)
+        });
+      }, 1000);
+      
+    }
     return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsContext.state.fetched]);
@@ -50,9 +43,21 @@ const Tasks = () => {
     <div className="Main Tasks">
       <h2>{userContext.state.nickname}'s Tasks</h2>
       <div className="Tasks_wrapper">
-        <h2>Tasks</h2>
+        <div className="Tasks-header">
+          <h2>Tasks</h2>
+          <Button
+            id="add-btn"
+            className="add-item-btn"
+            type="button"
+            name="add-btn"
+            text="+ New"
+            onClick={(e) => {
+              history.push('/tasks/add')
+            }}
+          />
+        </div>
         <div className="Tasks">
-          { items
+          { itemsContext.state.tasks
             .map((item) => {
               return (
                 <div 
@@ -77,7 +82,11 @@ const Tasks = () => {
                     <p 
                       className={`Task-due ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
                     >
-                      {item.date_due_string}</p>
+                      {item.completed
+                        ? "Completed"
+                        : item.date_due_string
+                      }
+                    </p>
                   </div>
                 </div>
               );

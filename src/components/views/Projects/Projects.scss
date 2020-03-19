@@ -11,13 +11,23 @@
   border-radius: 2rem;
   box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.25);
 }
-.Projects_wrapper h2 {
+.Projects-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   color: $white;
   background: $light-green;
   text-align: center;
   width: 100%;
   border-radius: 2rem 2rem 0 0;
   box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.25);
+}
+.Projects-header h2 {
+  margin-left: 1rem;
+}
+.add-item-btn {
+  margin-left: auto;
+  margin-right: 0.5rem;
 }
 .Projects {
   display: flex;
@@ -37,12 +47,24 @@
   border-radius: 1rem;
   box-shadow: 0 0.1rem 0.25rem rgba(0,0,0,0.25);
   margin: 0.5rem;
+  cursor: pointer;
+  &.past-due {
+    background: $pink;
+    color: $white;
+    .Project-summary p {
+      color: $white;
+    }
+    .Project-summary h3 {
+      background: $dark-gray;
+      color: $white;
+    }
+  }
 }
 .Project-summary h3 {
   font-size: 1.25rem;
   padding: 1rem;
   width: 100%;
-  background: $light-green;
+  background: $light-blue;
   color: $black;
   border-radius: 1rem 1rem 0 0;
 }
@@ -68,13 +90,17 @@
 }
 p.Project-due {
   margin-left: auto;
-  background: $light-blue;
+  background: $light-green;
   color: $white;
   padding: 0.5rem;
   padding-left: 1rem;
   border-radius: 1rem 0 1rem 0;
   margin-left: auto;
   font-size: 0.75rem;
+  &.past-due {
+    background: $white;
+    color: $error;
+  }
 }
 p.Project-project {
   margin-right: auto;
@@ -84,9 +110,4 @@ p.Project-project {
   padding-left: 1rem;
   border-radius: 0 1rem 0 1rem;
   font-size: 0.75rem;
-}
-.Projects-view-all-btn {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
 }
