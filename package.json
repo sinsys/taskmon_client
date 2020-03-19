@@ -21,12 +21,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "prebuild": "react-scripts test",
+    "prebuild": "CI=true react-scripts test --colors",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "CI=true react-scripts test --colors",
-    "deploy": "now --prod"
+    "predeploy": "npm run build",
+    "deploy": "now --prod ./build"
   },
   "eslintConfig": {
     "extends": "react-app"
