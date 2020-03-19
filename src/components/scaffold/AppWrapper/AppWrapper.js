@@ -44,9 +44,17 @@ const AppWrapper = (props) => {
   }, [itemsContext.state.fetched]);
 
   return (
-    <main className="Main_wrapper">
-      { props.children }
-    </main>
+    <>
+      {itemsContext.state.fetched
+        ? <main className="Main_wrapper">
+            { props.children }
+          </main>
+        : <main className="Main_wrapper">
+            <p>Fetching data. Please wait...</p>
+          </main>
+      }
+    </>
+
   );
 
 };
