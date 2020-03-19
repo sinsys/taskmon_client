@@ -51,13 +51,19 @@ const Task = (props) => {
         itemsContext.dispatch({
           type: 'refetch'
         });
-        history.goBack()
+        history.push('/tasks');
       });
   };
 
   const deleteTask = (taskId) => {
     if (window.confirm(`Are you sure you want to delete ${task.title}`) ) {
-      TasksApiService.deleteTask(taskId);
+      TasksApiService.deleteTask(taskId)
+        .then(res => {
+          itemsContext.dispatch({
+            type: 'refetch'
+          });
+          history.push('/tasks');
+        })
     }
   };
 

@@ -51,7 +51,7 @@ const Project = (props) => {
         itemsContext.dispatch({
           type: 'refetch'
         });
-        history.goBack()
+        history.push('/projects');
       });
   };
 
@@ -62,7 +62,7 @@ const Project = (props) => {
           itemsContext.dispatch({
             type: 'refetch'
           });
-          history.goBack();
+          history.push('/projects');
         })
     }
   };
