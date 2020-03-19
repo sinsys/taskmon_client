@@ -67,7 +67,6 @@
   justify-content: space-between;
 }
 span.Upcoming-type {
-  background: $brown;
   font-size: 1.25rem;
   color: $white;
   margin-left: auto;
@@ -75,9 +74,15 @@ span.Upcoming-type {
   padding: 0.5rem;
   border-radius: 0 1rem 0 1rem;
   text-transform: capitalize;
+  &.tasks {
+    background: $light-blue;
+  }
+  &.projects {
+    background :$light-green;
+  }
 }
 p.Upcoming-due {
-  background: $light-green;
+  background: $brown;
   color: $white;
   padding: 0.5rem;
   border-radius: 1rem 0 1rem 0;
@@ -90,10 +95,3 @@ p.Upcoming-due {
     color: $error;
   }
 }
-
-.Tasks-view-all-btn {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-

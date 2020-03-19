@@ -8,22 +8,21 @@ import './Timer.scss';
 
 const Timer = () => {
 
-  const { state, dispatch } = useContext(SessionContext);
+  const sessionContext = useContext(SessionContext);
 
   useEffect(() => {
-    let updateString = () => dispatch({
+    let updateString = () => sessionContext.dispatch({
       type: "update-string"
     });
     let interval = null;
-    if (state.timer.active) {
+    if (sessionContext.state.timer.active) {
       interval = setInterval(() => {
         updateString();
       }, 1000);
-    } else if (!state.timer.active) {
-      clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [state, dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionContext.state.active]);
 
   return (
 
@@ -31,8 +30,8 @@ const Timer = () => {
       <div className="time">
         <p>Session Time:&nbsp;
           <span>
-            {(state.timer.string)
-              ? state.timer.string
+            {(sessionContext.state.timer.string)
+              ? sessionContext.state.timer.string
               : "..."
             }
           </span>

@@ -46,17 +46,59 @@ const getTimeString = (direction, dateObj) => {
   return timeArr.join(' ');
 };
 
-const combineTasksProjects = (projects, tasks) => {
-  const allItems = [];
-  tasks.map(task => allItems.push({...task, type: 'task' }));
-  projects.map(project => allItems.push({...project, type: 'project' }));
-  allItems.sort((a, b) => {
-    return new Date(a.date_due) - new Date(b.date_due);
+const updateTimeStrings = (items) => {
+  return items.map(item => {
+    return {
+      ...item,
+      date_due_string: getTimeString("until", new Date(item.date_due))
+    }
   });
-  return allItems;
+};
+
+const addAdditionalProperties = (projects, tasks) => {
+  let projectsModifier = projects.map(cur => {
+
+    return {
+        ...cur,
+        date_due_string: getTimeString("until", new Date(cur.date_due)),
+        tasks: tasks.filter(task => {
+          return task.project_id === cur.id;
+        }),
+        task_count: tasks.filter(task => {
+          return task.project_id === cur.id;
+        }).length,
+        type: 'projects'
+      }
+
+  });
+
+  let tasksModifier = tasks.map(cur => {
+
+    return  {
+        ...cur,
+        date_due_string: getTimeString("until", new Date(cur.date_due)),
+        project_name: cur.project_id
+          ? projects.find(p => p.id === cur.project_id).title
+          : null,
+        type: 'tasks'
+      }
+
+  });
+
+  let allModifier = projectsModifier.concat(tasksModifier)
+    .sort((a, b) => {
+      return new Date(a.date_due) - new Date(b.date_due);
+    });
+
+  return {
+    projects: projectsModifier,
+    tasks: tasksModifier,
+    all: allModifier
+  }
 };
 
 module.exports = {
   getTimeString,
-  combineTasksProjects
+  updateTimeStrings,
+  addAdditionalProperties
 };

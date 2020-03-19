@@ -25,20 +25,51 @@ const ProjectsApiService = {
           ? res.json().then(e => Promise.reject(e))
           : res.json()
       )
+  },
+  updateProject: (project_id, updatedProject) => {
+    return fetch(`${config.API_ENDPOINT}/projects/${project_id}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `Bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify(updatedProject)
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(e => Promise.reject(e))
+          : res.json()
+      )
+  },
+  addProject: (newProject) => {
+    return fetch(`${config.API_ENDPOINT}/projects`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `Bearer ${TokenService.getAuthToken()}`
+      },
+      body: JSON.stringify(newProject)
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(e => Promise.reject(e))
+          : res.json()
+      )
+  },
+  deleteProject: (project_id) => {
+    return fetch(`${config.API_ENDPOINT}/projects/${project_id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `Bearer ${TokenService.getAuthToken()}`
+      }
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(e => Promise.reject(e))
+          : ""
+      )
   }
-  // },
-  // getArticleComments(articleId) {
-  //   return fetch(`${config.API_ENDPOINT}/articles/${articleId}/comments`, {
-  //     headers: {
-  //       'authorization': `basic ${TokenService.getAuthToken()}`,
-  //     },
-  //   })
-  //     .then(res =>
-  //       (!res.ok)
-  //         ? res.json().then(e => Promise.reject(e))
-  //         : res.json()
-  //     )
-  // },
   // postComment(articleId, text) {
   //   return fetch(`${config.API_ENDPOINT}/comments`, {
   //     method: 'POST',
@@ -58,5 +89,4 @@ const ProjectsApiService = {
   //     )
   // }
 }
-
 export default ProjectsApiService;

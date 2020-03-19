@@ -1,0 +1,15 @@
+.project-heading {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.project-options {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  width: 100%;
+  button {
+    margin: 0.5rem;
+  }
+}

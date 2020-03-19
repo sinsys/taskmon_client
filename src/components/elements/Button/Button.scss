@@ -47,3 +47,29 @@
 .view-more-btn:hover {
   background: $green;
 }
+
+.back-btn {
+  background: $pink;
+  color: $white;
+}
+
+.edit-btn {
+  background: $light-blue;
+  color: $white;
+}
+
+.complete-btn {
+  background: $light-green;
+  color: $white;
+}
+
+.delete-btn {
+  background: $pink;
+  color: $white;
+}
+
+.add-item-btn {
+  background: $white;
+  color: $light-green;
+  border-radius: 1rem 2rem 0 0;
+}

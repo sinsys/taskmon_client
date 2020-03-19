@@ -53,11 +53,23 @@ const LoggedIn = () => {
             />
             <PrivateRoute
               exact path={'/tasks/:id'}
-              component={Task}
+              component={(props) => {
+                return (
+                  <Task 
+                    taskId={props.match.params.id}
+                  />
+                )
+              }}
             />
             <PrivateRoute
               exact path={'/projects/:id'}
-              component={Project}
+              component={(props) => {
+                return (
+                  <Project
+                    projectId={props.match.params.id}
+                  />
+                )
+              }}
             />
             <PrivateRoute
               exact path={'/settings'}

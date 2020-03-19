@@ -1,26 +1,39 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import ProjectsApiService from 'services/projects-service';
+
 import { useInputChange } from 'hooks/useInputChange';
+import { DateTimePicker } from '@material-ui/pickers';
+
+import { ItemsContext } from 'contexts/ItemsContext';
 
 import Button from 'components/elements/Button/Button';
 
 import './ProjectForm.scss';
 
+
 const ProjectForm = () => {
 
   const history = useHistory();
 
+  const itemsContext = useContext(ItemsContext);
   const [input, handleInputChange] = useInputChange();
+  const [selectedDate, handleDateChange] = useState(new Date());
 
   const submitForm = (e) => {
     e.preventDefault();
-    const loginCreds = {
-      // username: input["email-field"],
-      // password: input["password-field"],
-      // additionalField: input["additional-field"]
+    const projectProperties = {
+      ...input,
+      date_due: selectedDate
     };
-    console.log(`Mock form submission:
-    ${JSON.stringify(loginCreds)}`);
+    ProjectsApiService.addProject(projectProperties)
+      .then(res => {
+        itemsContext.dispatch({
+          type: 'refetch'
+        });
+        history.goBack();
+      });
   };
 
   return (
@@ -31,32 +44,60 @@ const ProjectForm = () => {
         className="Project_form base-form"
         onSubmit={(e) => submitForm(e) }
       >
-        <h2 className="Main-heading">Project</h2>
+        <h2 className="Main-heading">New Project</h2>
         <label htmlFor="title-field">
           Title
         </label>
         <input 
           type="text" 
           id="title-field" 
-          name="title-field"  
+          name="title"  
           onChange={handleInputChange}
+          required
         />
         <label htmlFor="desc-field">
           Description
         </label>
         <textarea
           id="desc-field" 
-          name="desc-field" 
+          name="content" 
           onChange={handleInputChange}
         ></textarea>
-        <label htmlFor="additional-field">
-          Additional Fields...
+
+        {/* <label htmlFor="project-select">
+        Project:
+          <Checkbox 
+            name="project-checkbox"
+            onChange={handleInputChange}
+          />          
         </label>
-        <input 
-          type="text" 
-          id="additional-field" 
-          name="additional-field" 
-          onChange={handleInputChange}
+        
+        <select
+          disabled={!input["project-checkbox"]}
+        >
+          <option>-- No project --</option>
+          { itemsContext.state.projects.map(project => {
+            return (
+              <option
+                key={project.id}
+              >
+                {project.title}
+              </option>
+            )
+          })}
+        </select> */}
+        <label htmlFor="date-due-picker">
+          Date Due: 
+        </label>
+        <DateTimePicker
+          id="date-due-picker"
+          inputVariant="standard"
+          value={selectedDate}
+          onChange={handleDateChange}
+          InputProps={{
+            disableUnderline: true,
+           }}
+          required
         />
         <Button
           id="submit-project-btn"
