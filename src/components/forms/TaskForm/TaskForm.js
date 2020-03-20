@@ -41,7 +41,7 @@ const TaskForm = () => {
         itemsContext.dispatch({
           type: 'refetch'
         });
-        history.goBack();
+        history.push('/tasks');
       });
   };
 

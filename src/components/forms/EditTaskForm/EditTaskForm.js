@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import TasksApiService from 'services/tasks-service';
@@ -14,13 +14,31 @@ import Button from 'components/elements/Button/Button';
 import './EditTaskForm.scss';
 
 
-const EditTaskForm = () => {
+const EditTaskForm = (props) => {
 
   const history = useHistory();
 
   const itemsContext = useContext(ItemsContext);
-  const [input, handleInputChange] = useInputChange();
+
+  let contextTask = itemsContext.state.tasks.find(task => {
+    let taskIdInt = parseInt(props.taskId);
+    return task.id === taskIdInt;
+  });
+
+  const [input, handleInputChange] = useInputChange({
+    ...contextTask,
+    "project-checkbox": (contextTask.project_id !== null)
+  });
   const [selectedDate, handleDateChange] = useState(new Date());
+
+  useEffect(() => {
+
+    if ( itemsContext.state.fetched ) {
+      handleDateChange(new Date(input["date_due"]))
+    };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemsContext.state.fetched]);
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -36,12 +54,13 @@ const EditTaskForm = () => {
     ) {
       taskProperties.project_id = parseInt(input["project_id"]);
     }
-    TasksApiService.addTask(taskProperties)
+    console.log(taskProperties);
+    TasksApiService.updateTask(props.taskId, taskProperties)
       .then(res => {
         itemsContext.dispatch({
           type: 'refetch'
         });
-        history.goBack();
+        history.push(`/tasks/${props.taskId}`);
       });
   };
 
@@ -53,14 +72,15 @@ const EditTaskForm = () => {
         className="Task_form base-form"
         onSubmit={(e) => submitForm(e) }
       >
-        <h2 className="Main-heading">New Task</h2>
+        <h2 className="Main-heading">Edit Task</h2>
         <label htmlFor="title-field">
           Title
         </label>
         <input 
           type="text" 
           id="title-field" 
-          name="title"  
+          name="title"
+          value={input["title"]}
           onChange={handleInputChange}
           required
         />
@@ -70,6 +90,7 @@ const EditTaskForm = () => {
         <textarea
           id="desc-field" 
           name="content" 
+          value={input["content"]}
           onChange={handleInputChange}
         ></textarea>
 
@@ -77,12 +98,14 @@ const EditTaskForm = () => {
         Project:
           <Checkbox 
             name="project-checkbox"
+            checked={input["project-checkbox"]}
             onChange={handleInputChange}
           />          
         </label>
         
         <select
           name="project_id"
+          value={input["project_id"] || ""}
           onChange={handleInputChange}
           disabled={!input["project-checkbox"]}
         >

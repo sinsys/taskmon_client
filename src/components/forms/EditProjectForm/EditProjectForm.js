@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import ProjectsApiService from 'services/projects-service';
@@ -12,27 +12,46 @@ import Button from 'components/elements/Button/Button';
 
 import './EditProjectForm.scss';
 
-
-const EditProjectForm = () => {
+const EditProjectForm = (props) => {
 
   const history = useHistory();
 
   const itemsContext = useContext(ItemsContext);
-  const [input, handleInputChange] = useInputChange();
+
+  let contextProject = itemsContext.state.projects.find(project => {
+    let projectIdInt = parseInt(props.projectId);
+    return project.id === projectIdInt;
+  });
+
+  const [input, handleInputChange] = useInputChange({
+    ...contextProject
+  });
+
   const [selectedDate, handleDateChange] = useState(new Date());
+
+  useEffect(() => {
+
+    if ( itemsContext.state.fetched ) {
+      handleDateChange(new Date(input["date_due"]))
+    };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemsContext.state.fetched]);
 
   const submitForm = (e) => {
     e.preventDefault();
     const projectProperties = {
-      ...input,
+      title: input["title"],
+      content: input["content"],
       date_due: selectedDate
     };
-    ProjectsApiService.addProject(projectProperties)
+
+    ProjectsApiService.updateProject(props.projectId, projectProperties)
       .then(res => {
         itemsContext.dispatch({
           type: 'refetch'
         });
-        history.goBack();
+        history.push(`/projects/${props.projectId}`);
       });
   };
 
@@ -44,14 +63,15 @@ const EditProjectForm = () => {
         className="Project_form base-form"
         onSubmit={(e) => submitForm(e) }
       >
-        <h2 className="Main-heading">New Project</h2>
+        <h2 className="Main-heading">Edit Project</h2>
         <label htmlFor="title-field">
           Title
         </label>
         <input 
           type="text" 
           id="title-field" 
-          name="title"  
+          name="title"
+          value={input["title"]}
           onChange={handleInputChange}
           required
         />
@@ -61,6 +81,7 @@ const EditProjectForm = () => {
         <textarea
           id="desc-field" 
           name="content" 
+          value={input["content"]}
           onChange={handleInputChange}
         ></textarea>
         <label htmlFor="date-due-picker">
