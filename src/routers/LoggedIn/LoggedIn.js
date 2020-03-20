@@ -16,6 +16,8 @@ import NoMatch from 'components/views/NoMatch/NoMatch';
 
 import TaskForm from 'components/forms/TaskForm/TaskForm';
 import ProjectForm from 'components/forms/ProjectForm/ProjectForm';
+import EditTaskForm from 'components/forms/EditTaskForm/EditTaskForm';
+import EditProjectForm from 'components/forms/EditProjectForm/EditProjectForm';
 
 import PrivateRoute from 'utils/PrivateRoute';
 
@@ -66,6 +68,26 @@ const LoggedIn = () => {
               component={(props) => {
                 return (
                   <Project
+                    projectId={props.match.params.id}
+                  />
+                )
+              }}
+            />
+            <PrivateRoute
+              exact path={'/tasks/:id/edit'}
+              component={(props) => {
+                return (
+                  <EditTaskForm 
+                    taskId={props.match.params.id}
+                  />
+                )
+              }}
+            />
+            <PrivateRoute
+              exact path={'/projects/:id/edit'}
+              component={(props) => {
+                return (
+                  <EditProjectForm
                     projectId={props.match.params.id}
                   />
                 )
