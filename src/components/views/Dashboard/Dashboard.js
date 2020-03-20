@@ -51,6 +51,12 @@ const Dashboard = () => {
       <div className="Upcoming_wrapper">
         <h2>Upcoming</h2>
         <div className="Upcoming">
+          { itemsContext.state.all.length === 0
+            ? <div className="empty-state">
+                <p>You have no upcoming tasks or projects</p>
+              </div>
+            : ""
+          }
           { itemsContext.state.all
             .map((item) => {
               return (
@@ -77,7 +83,8 @@ const Dashboard = () => {
                   </div>
                 </div>
               );
-          })}
+            })
+          }
         </div>
       </div>
     </div>

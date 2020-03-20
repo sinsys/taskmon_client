@@ -49,6 +49,32 @@ const Login = () => {
         console.log('Something went wrong');
       })
   }
+
+  const guestLogin = (e) => {
+    e.preventDefault();
+    const loginCreds = {
+      user_name: "dunder@dunder.com",
+      password: "password"
+    };
+
+    AuthApiService.postLogin({
+      user_name: loginCreds.user_name,
+      password: loginCreds.password
+    })
+      .then(res => {
+        TokenService.saveAuthToken(res.authToken);
+        loginCreds.user_name = '';
+        loginCreds.password = '';
+        SettingsApiService.getSettings()
+          .then(res => {
+            login(res);
+          })
+      })
+      .catch(res => {
+        console.log('Something went wrong');
+      })
+  }
+
   return (
 
     <div className="Main">
@@ -105,7 +131,7 @@ const Login = () => {
           name="guest-login-btn"
           text="Log in as guest"
           onClick={(e) => {
-            submitJwtAuth(e)
+            guestLogin(e)
           }}
         />
       </form>

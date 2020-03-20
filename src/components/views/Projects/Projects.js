@@ -60,6 +60,12 @@ const Projects = () => {
           />
         </div>
         <div className="Projects">
+        { itemsContext.state.projects.length === 0
+            ? <div className="empty-state">
+                <p>You have no upcoming projects</p>
+              </div>
+            : ""
+        }
         { itemsContext.state.projects
             .map((item) => {
               return (
@@ -93,7 +99,8 @@ const Projects = () => {
                   </div>
                 </div>
               );
-          })}
+            })
+          }
         </div>
       </div>
     </div>

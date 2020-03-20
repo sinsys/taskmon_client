@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useInputChange } from 'hooks/useInputChange';
+
+import { UserContext } from 'contexts/UserContext';
+import TokenService from 'services/token-service';
+import SettingsApiService from 'services/settings-service';
+import AuthApiService from 'services/auth-api-service';
 
 import Button from 'components/elements/Button/Button';
 
@@ -12,17 +17,38 @@ const Signup = () => {
 
   const [input, handleInputChange] = useInputChange();
 
+  let { dispatch } = useContext(UserContext);
+  let login = (settings) => dispatch({
+    type: "login",
+    data: settings
+  });
+
   const submitForm = (e) => {
     e.preventDefault();
-    const loginCreds = {
-      username: input["email-field"],
-      password: input["password-field"],
-      additionalField: input["additional-field"]
+    const registrationCreds = {
+      user_name: input["user_name"],
+      password: input["password"],
+      nickname: input["nickname"]
     };
-    console.log(`Mock form submission:
-    ${JSON.stringify(loginCreds)}`);
+    AuthApiService.postUser(registrationCreds)
+      .then(res => {
+        AuthApiService.postLogin({
+          user_name: registrationCreds.user_name,
+          password: registrationCreds.password
+        })
+          .then(res => {
+            TokenService.saveAuthToken(res.authToken);
+            SettingsApiService.getSettings()
+              .then(res => {
+                history.push('/');
+                login(res);
+              });
+          });
+      })
+      .catch(res => {
+        console.log('Something went wrong');
+      });
   };
-
   return (
 
     <div className="Main">
@@ -38,7 +64,7 @@ const Signup = () => {
         <input 
           type="email" 
           id="email-field" 
-          name="email-field" 
+          name="user_name" 
           autoComplete="email" 
           onChange={handleInputChange}
         />
@@ -48,7 +74,7 @@ const Signup = () => {
         <input 
           type="password" 
           id="password-field" 
-          name="password-field" 
+          name="password" 
           autoComplete="current-password" 
           onChange={handleInputChange}
         />
@@ -62,13 +88,13 @@ const Signup = () => {
           autoComplete="current-password" 
           onChange={handleInputChange}
         />
-        <label htmlFor="additional-field">
-          Additional Fields...
+        <label htmlFor="display-name">
+          Display Name
         </label>
         <input 
           type="text" 
-          id="additional-field" 
-          name="additional-field" 
+          id="display-name" 
+          name="nickname" 
           onChange={handleInputChange}
         />
         <Button

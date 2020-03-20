@@ -57,6 +57,12 @@ const Tasks = () => {
           />
         </div>
         <div className="Tasks">
+          { itemsContext.state.tasks.length === 0
+              ? <div className="empty-state">
+                  <p>You have no upcoming tasks</p>
+                </div>
+              : ""
+          }
           { itemsContext.state.tasks
             .map((item) => {
               return (
