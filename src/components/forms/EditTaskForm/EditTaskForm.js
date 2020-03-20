@@ -23,11 +23,10 @@ const EditTaskForm = (props) => {
   let contextTask = itemsContext.state.tasks.find(task => {
     let taskIdInt = parseInt(props.taskId);
     return task.id === taskIdInt;
-  });
-
+  }) || { project_id: null };
   const [input, handleInputChange] = useInputChange({
     ...contextTask,
-    "project-checkbox": (contextTask.project_id !== null)
+    "project-checkbox": (contextTask.project_id != null)
   });
   const [selectedDate, handleDateChange] = useState(new Date());
 
@@ -54,7 +53,6 @@ const EditTaskForm = (props) => {
     ) {
       taskProperties.project_id = parseInt(input["project_id"]);
     }
-    console.log(taskProperties);
     TasksApiService.updateTask(props.taskId, taskProperties)
       .then(res => {
         itemsContext.dispatch({
