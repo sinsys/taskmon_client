@@ -1,47 +1,57 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import TasksApiService from 'services/tasks-service';
+import ProjectsApiService from 'services/projects-service';
 
 import { useInputChange } from 'hooks/useInputChange';
-import { Checkbox } from '@material-ui/core';
 import { DateTimePicker } from '@material-ui/pickers';
 
 import { ItemsContext } from 'contexts/ItemsContext';
 
 import Button from 'components/elements/Button/Button';
 
-import './TaskForm.scss';
+import './EditProjectForm.scss';
 
-
-const TaskForm = () => {
+const EditProjectForm = (props) => {
 
   const history = useHistory();
 
   const itemsContext = useContext(ItemsContext);
-  const [input, handleInputChange] = useInputChange();
+
+  let contextProject = itemsContext.state.projects.find(project => {
+    let projectIdInt = parseInt(props.projectId);
+    return project.id === projectIdInt;
+  });
+
+  const [input, handleInputChange] = useInputChange({
+    ...contextProject
+  });
+
   const [selectedDate, handleDateChange] = useState(new Date());
+
+  useEffect(() => {
+
+    if ( itemsContext.state.fetched ) {
+      handleDateChange(new Date(input["date_due"]))
+    };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemsContext.state.fetched]);
 
   const submitForm = (e) => {
     e.preventDefault();
-    const taskProperties = {
+    const projectProperties = {
       title: input["title"],
       content: input["content"],
       date_due: selectedDate
     };
-    if ( 
-      input["project-checkbox"] && 
-      input["project_id"] !== undefined &&
-      input["project_id"] !== "-- No project --"
-    ) {
-      taskProperties.project_id = parseInt(input["project_id"]);
-    }
-    TasksApiService.addTask(taskProperties)
+
+    ProjectsApiService.updateProject(props.projectId, projectProperties)
       .then(res => {
         itemsContext.dispatch({
           type: 'refetch'
         });
-        history.push('/tasks');
+        history.push(`/projects/${props.projectId}`);
       });
   };
 
@@ -49,18 +59,19 @@ const TaskForm = () => {
 
     <div className="Main">
       <form 
-        id="Task_form"
-        className="Task_form base-form"
+        id="Project_form"
+        className="Project_form base-form"
         onSubmit={(e) => submitForm(e) }
       >
-        <h2 className="Main-heading">New Task</h2>
+        <h2 className="Main-heading">Edit Project</h2>
         <label htmlFor="title-field">
           Title
         </label>
         <input 
           type="text" 
           id="title-field" 
-          name="title"  
+          name="title"
+          value={input["title"]}
           onChange={handleInputChange}
           required
         />
@@ -70,36 +81,9 @@ const TaskForm = () => {
         <textarea
           id="desc-field" 
           name="content" 
+          value={input["content"]}
           onChange={handleInputChange}
         ></textarea>
-
-        <label htmlFor="project-select">
-        Project:
-          <Checkbox 
-            name="project-checkbox"
-            onChange={handleInputChange}
-          />          
-        </label>
-        
-        <select
-          name="project_id"
-          onChange={handleInputChange}
-          disabled={!input["project-checkbox"]}
-        >
-          <option value="-- No project --">
-            -- No project --
-          </option>
-          { itemsContext.state.projects.map(project => {
-            return (
-              <option
-                key={project.id}
-                value={project.id}
-              >
-                {project.title}
-              </option>
-            );
-          })}
-        </select>
         <label htmlFor="date-due-picker">
           Date Due: 
         </label>
@@ -114,11 +98,11 @@ const TaskForm = () => {
           required
         />
         <Button
-          id="submit-task-btn"
+          id="submit-project-btn"
           className="submit-btn"
           type="submit"
           name="submit-btn"
-          form="Task_form"
+          form="Project_form"
           text="Submit"
         />
         <Button
@@ -138,4 +122,4 @@ const TaskForm = () => {
 
 };
 
-export default TaskForm;
+export default EditProjectForm;

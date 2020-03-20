@@ -51,7 +51,16 @@ const Project = (props) => {
         itemsContext.dispatch({
           type: 'refetch'
         });
-        history.push('/projects');
+      });
+  };
+
+  const markProjectIncomplete = (projectId) => {
+    let markCompleted = { completed: false };
+    ProjectsApiService.updateProject(projectId, markCompleted)
+      .then(res => {
+        itemsContext.dispatch({
+          type: 'refetch'
+        });
       });
   };
 
@@ -123,14 +132,25 @@ const Project = (props) => {
             type="button"
             name="edit-btn"
             text="Edit"
+            onClick={(e) => {
+              history.push(`/projects/${project.id}/edit`);
+            }}
           />
           <Button
             id="complete-btn"
-            className="complete-btn"
+            className={`${!project.completed ? 'complete-btn' : 'incomplete-btn'}`}
             type="button"
             name="complete-btn"
-            text="Complete"
-            onClick={(e) => markProjectComplete(project.id)}
+            text={
+              project.completed
+                ? "Incomplete"
+                : "Complete"
+            }
+            onClick={(e) => {
+              project.completed
+                ? markProjectIncomplete(project.id)
+                : markProjectComplete(project.id);
+            }}
           />
       </div>
     </div>

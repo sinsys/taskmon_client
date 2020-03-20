@@ -129,7 +129,7 @@ const Login = () => {
           className="guest-login-btn"
           type="button"
           name="guest-login-btn"
-          text="Log in as guest"
+          text="Demo Account"
           onClick={(e) => {
             guestLogin(e)
           }}
