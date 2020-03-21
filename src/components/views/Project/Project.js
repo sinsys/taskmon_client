@@ -90,7 +90,6 @@ const Project = (props) => {
   };
 
   return (
-
     <div className="Main Project">
       <div className="project-heading">
         <Button
@@ -134,90 +133,89 @@ const Project = (props) => {
 
       <div className="task-options">
         <Button
-            id="delete-btn"
-            className="delete-btn"
-            type="button"
-            name="delete-btn"
-            text="Delete"
-            onClick={(e) => deleteProject(project.id)}
-          />
-          <Button
-            id="edit-btn"
-            className="edit-btn"
-            type="button"
-            name="edit-btn"
-            text="Edit"
-            onClick={(e) => {
-              history.push(`/projects/${project.id}/edit`);
-            }}
-          />
-          <Button
-            id="complete-btn"
-            className={`${!project.completed ? 'complete-btn' : 'incomplete-btn'}`}
-            type="button"
-            name="complete-btn"
-            text={
-              project.completed
-                ? "Incomplete"
-                : "Complete"
-            }
-            onClick={(e) => {
-              project.completed
-                ? markProjectIncomplete(project.id)
-                : markProjectComplete(project.id);
-            }}
-          />
-        </div>
-        <div className="Project-tasks_wrapper">
-          <div className="Tasks-header">
-            <h2>Tasks</h2>
-            <Button
-              id="add-btn"
-              className="add-item-btn"
-              type="button"
-              name="add-btn"
-              text="+ New"
-              onClick={(e) => {
-                history.push('/tasks/add')
-              }}
-            />
-          </div>
-          <div className="Upcoming">
-            { project.tasks !== undefined && project.tasks.length > 0
-              ? <div className="Project-tasks">
-                  { project.tasks.map(item => {
-                    return (
-                      <div 
-                        className={`Upcoming-item ${item.date_due_string === 'Past due' ? 'past-due' : ''}`} 
-                        key={`${item.id}-${item.type}`}
-                        onClick={() => {
-                          history.push(`/${item.type}/${item.id}`)
-                        }}
-                      >
-                        <div className="Upcoming-summary">
-                          <span className="Upcoming-title">{item.title}</span>
-                          <span className={`Upcoming-type ${item.type}`}>{item.type}</span>
-                        </div>
-                        <div className="Upcoming-details">
-                          <p 
-                            className={`Project-due ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
-                          >
-                            {item.completed
-                              ? "Completed"
-                              : item.date_due_string
-                            }
-                          </p>
-                        </div>
+          id="delete-btn"
+          className="delete-btn"
+          type="button"
+          name="delete-btn"
+          text="Delete"
+          onClick={(e) => deleteProject(project.id)}
+        />
+        <Button
+          id="edit-btn"
+          className="edit-btn"
+          type="button"
+          name="edit-btn"
+          text="Edit"
+          onClick={(e) => {
+            history.push(`/projects/${project.id}/edit`);
+          }}
+        />
+        <Button
+          id="complete-btn"
+          className={`${!project.completed ? 'complete-btn' : 'incomplete-btn'}`}
+          type="button"
+          name="complete-btn"
+          text={
+            project.completed
+              ? "Incomplete"
+              : "Complete"
+          }
+          onClick={(e) => {
+            project.completed
+              ? markProjectIncomplete(project.id)
+              : markProjectComplete(project.id);
+          }}
+        />
+      </div>
+      { project.tasks !== undefined && project.tasks.length > 0
+        ? <div className="Project-tasks_wrapper">
+            <div className="Tasks-header">
+              <h2>Tasks</h2>
+              <Button
+                id="add-btn"
+                className="add-item-btn"
+                type="button"
+                name="add-btn"
+                text="+ New"
+                onClick={(e) => {
+                  history.push('/tasks/add')
+                }}
+              />
+            </div>
+            <div className="Upcoming">
+              <div className="Project-tasks">
+                { project.tasks.map(item => {
+                  return (
+                    <div 
+                      className={`Upcoming-item ${item.date_due_string === 'Past due' ? 'past-due' : ''}`} 
+                      key={`${item.id}-${item.type}`}
+                      onClick={() => {
+                        history.push(`/tasks/${item.id}`)
+                      }}
+                    >
+                      <div className="Upcoming-summary">
+                        <span className="Upcoming-title">{item.title}</span>
+                        <span className={`Upcoming-type ${item.type}`}>{item.type}</span>
                       </div>
-                    );
-                  })}
-                </div>
-              : ""
-            }
+                      <div className="Upcoming-details">
+                        <p 
+                          className={`Project-due ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
+                        >
+                          {item.completed
+                            ? "Completed"
+                            : item.date_due_string
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-        </div>
+        : ""
+      }
     </div>
-    
   );
 
 };
