@@ -55,9 +55,8 @@ const EditTaskForm = (props) => {
       submitForm();
     }
   };
-  
+
   const submitForm = (e) => {
-    e.preventDefault();
     const taskProperties = {
       title: input["title"],
       content: input["content"],
