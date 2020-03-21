@@ -86,18 +86,16 @@ select {
 }
 
 .Header_wrapper {
-  flex-basis: 12.5%;
   background: $light-green;
 }
 .Main_wrapper {
-  flex-basis: 77.5%;
+  flex-grow: 1;
   background: $white;
 }
 .Main_wrapper.no-padding {
   padding: 0;
 }
 .Footer_wrapper {
-  flex-basis: 10%;
   background: $light-green;
   padding: 1rem;
 }

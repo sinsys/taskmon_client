@@ -26,7 +26,7 @@ const Signup = () => {
     data: settings
   });
 
-  const validateLoginForm = (e) => {
+  const validateSignupForm = (e) => {
     e.preventDefault();
     let errors = {};
     if ( input["user_name"] === undefined || input["user_name"] === '' ) {
@@ -91,7 +91,7 @@ const Signup = () => {
       <form 
         id="Signup_form"
         className="Signup_form base-form"
-        onSubmit={(e) => validateLoginForm(e) }
+        onSubmit={(e) => validateSignupForm(e) }
       >
         <h2 className="Main-heading">Sign Up</h2>
         <label htmlFor="email-field">

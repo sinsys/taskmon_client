@@ -65,13 +65,7 @@ const Login = () => {
           })
       })
       .catch(res => {
-        setErrors(
-          {
-            user_name: {
-              message: res.error
-            }
-          }
-        )
+        setErrors( { user_name: { message: res.error } } );
       });
   }
 

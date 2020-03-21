@@ -8,6 +8,7 @@ import { DateTimePicker } from '@material-ui/pickers';
 
 import { ItemsContext } from 'contexts/ItemsContext';
 
+import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
 import Button from 'components/elements/Button/Button';
 
 import './ProjectForm.scss';
@@ -20,9 +21,24 @@ const ProjectForm = () => {
   const itemsContext = useContext(ItemsContext);
   const [input, handleInputChange] = useInputChange();
   const [selectedDate, handleDateChange] = useState(new Date());
+  const [errors, setErrors] = useState({});
 
-  const submitForm = (e) => {
+  const validateProjectForm = (e) => {
     e.preventDefault();
+    let errors = {};
+    if ( input.title === undefined || input.title === '' ) {
+      errors.title = { message: "Title is required" }
+    }
+    if ( Object.keys(errors).length !== 0 ) {
+      return (
+        setErrors(errors)
+      );
+    } else {
+      submitForm();
+    }
+  };
+
+  const submitForm = () => {
     const projectProperties = {
       ...input,
       date_due: selectedDate
@@ -42,18 +58,23 @@ const ProjectForm = () => {
       <form 
         id="Project_form"
         className="Project_form base-form"
-        onSubmit={(e) => submitForm(e) }
+        onSubmit={(e) => validateProjectForm(e) }
       >
         <h2 className="Main-heading">New Project</h2>
         <label htmlFor="title-field">
           Title
+          { errors.title
+            ? <ErrorMsg 
+                message={errors.title.message} 
+              />
+            : ""
+          }
         </label>
         <input 
           type="text" 
           id="title-field" 
           name="title"  
           onChange={handleInputChange}
-          required
         />
         <label htmlFor="desc-field">
           Description

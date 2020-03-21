@@ -9,6 +9,7 @@ import { DateTimePicker } from '@material-ui/pickers';
 
 import { ItemsContext } from 'contexts/ItemsContext';
 
+import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
 import Button from 'components/elements/Button/Button';
 
 import './TaskForm.scss';
@@ -21,9 +22,24 @@ const TaskForm = () => {
   const itemsContext = useContext(ItemsContext);
   const [input, handleInputChange] = useInputChange();
   const [selectedDate, handleDateChange] = useState(new Date());
+  const [errors, setErrors] = useState({});
+
+  const validateTaskForm = (e) => {
+    e.preventDefault();
+    let errors = {};
+    if ( input.title === undefined || input.title === '' ) {
+      errors.title = { message: "Title is required" }
+    }
+    if ( Object.keys(errors).length !== 0 ) {
+      return (
+        setErrors(errors)
+      );
+    } else {
+      submitForm();
+    }
+  };
 
   const submitForm = (e) => {
-    e.preventDefault();
     const taskProperties = {
       title: input["title"],
       content: input["content"],
@@ -51,18 +67,23 @@ const TaskForm = () => {
       <form 
         id="Task_form"
         className="Task_form base-form"
-        onSubmit={(e) => submitForm(e) }
+        onSubmit={(e) => validateTaskForm(e) }
       >
         <h2 className="Main-heading">New Task</h2>
         <label htmlFor="title-field">
           Title
+          { errors.title
+            ? <ErrorMsg 
+                message={errors.title.message} 
+              />
+            : ""
+          }
         </label>
         <input 
           type="text" 
           id="title-field" 
           name="title"  
           onChange={handleInputChange}
-          required
         />
         <label htmlFor="desc-field">
           Description

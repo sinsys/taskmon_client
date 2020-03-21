@@ -9,6 +9,7 @@ import { DateTimePicker } from '@material-ui/pickers';
 
 import { ItemsContext } from 'contexts/ItemsContext';
 
+import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
 import Button from 'components/elements/Button/Button';
 
 import './EditTaskForm.scss';
@@ -29,6 +30,7 @@ const EditTaskForm = (props) => {
     "project-checkbox": (contextTask.project_id != null)
   });
   const [selectedDate, handleDateChange] = useState(new Date());
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
 
@@ -39,6 +41,21 @@ const EditTaskForm = (props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsContext.state.fetched]);
 
+  const validateTaskForm = (e) => {
+    e.preventDefault();
+    let errors = {};
+    if ( input.title === undefined || input.title === '' ) {
+      errors.title = { message: "Title is required" }
+    }
+    if ( Object.keys(errors).length !== 0 ) {
+      return (
+        setErrors(errors)
+      );
+    } else {
+      submitForm();
+    }
+  };
+  
   const submitForm = (e) => {
     e.preventDefault();
     const taskProperties = {
@@ -68,11 +85,17 @@ const EditTaskForm = (props) => {
       <form 
         id="Task_form"
         className="Task_form base-form"
-        onSubmit={(e) => submitForm(e) }
+        onSubmit={(e) => validateTaskForm(e) }
       >
         <h2 className="Main-heading">Edit Task</h2>
         <label htmlFor="title-field">
           Title
+          { errors.title
+            ? <ErrorMsg 
+                message={errors.title.message} 
+              />
+            : ""
+          }
         </label>
         <input 
           type="text" 

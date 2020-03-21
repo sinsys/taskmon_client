@@ -21,10 +21,23 @@ const Project = (props) => {
 
     let timer = null;
 
-    const updateTimeString = (item) => {
-      return { 
-        ...item,
-        date_due_string: getTimeString("until", new Date(item.date_due))
+    const updateTimeStrings = (item) => {
+      if (item.hasOwnProperty('tasks') && item.tasks.length > 0){
+        return {
+          ...item,
+          date_due_string: getTimeString("until", new Date(item.date_due)),
+          tasks: item.tasks.map(task => {
+            return {
+              ...task,
+              date_due_string: getTimeString("until", new Date(task.date_due)) 
+            }
+          })
+        }
+      } else {
+        return { 
+          ...item,
+          date_due_string: getTimeString("until", new Date(item.date_due))
+        }
       }
     };
 
@@ -34,9 +47,9 @@ const Project = (props) => {
           let projectIdInt = parseInt(props.projectId);
           return project.id === projectIdInt;
         });
-      setProject(updateTimeString(project))
+      setProject(updateTimeStrings(project));
       timer = setInterval(() => {
-        setProject(updateTimeString(project));
+        setProject(updateTimeStrings(project));
       }, 1000);
     }
 
@@ -91,32 +104,34 @@ const Project = (props) => {
           }}
         />
       </div>
-        <div 
-          className={`Project-item ${project.date_due_string === 'Past due' ? 'past-due' : ''}`}
-          key={`${project.id}-${project.type}`}
-        >
-          <div className="Project-summary">
-            <h3>{project.title}</h3>
-            <p>{project.content}</p>
-          </div>
 
-          <div className="Project-details">
-            { (project.task_count !== 0) 
-              ? <p className="Project-project">
-                  {`${project.task_count} ${(project.task_count === 1) ? 'task' : 'tasks'}`}
-                </p>
-              : ""
-            }
-            <p 
-              className={`Project-due ${project.date_due_string === 'Past due' ? 'past-due' : ''}`}
-            >
-              {project.completed
-                ? "Completed"
-                : project.date_due_string
-              }
-            </p>
-          </div>
+      <div 
+        className={`Project-item ${project.date_due_string === 'Past due' ? 'past-due' : ''}`}
+        key={`${project.id}-${project.type}`}
+      >
+        <div className="Project-summary">
+          <h3>{project.title}</h3>
+          <p>{project.content}</p>
         </div>
+
+        <div className="Project-details">
+          { (project.task_count !== 0) 
+            ? <p className="Project-project">
+                {`${project.task_count} ${(project.task_count === 1) ? 'task' : 'tasks'}`}
+              </p>
+            : ""
+          }
+          <p 
+            className={`Project-due ${project.date_due_string === 'Past due' ? 'past-due' : ''}`}
+          >
+            {project.completed
+              ? "Completed"
+              : project.date_due_string
+            }
+          </p>
+        </div>
+      </div>
+
       <div className="task-options">
         <Button
             id="delete-btn"
@@ -126,7 +141,7 @@ const Project = (props) => {
             text="Delete"
             onClick={(e) => deleteProject(project.id)}
           />
-        <Button
+          <Button
             id="edit-btn"
             className="edit-btn"
             type="button"
@@ -152,7 +167,55 @@ const Project = (props) => {
                 : markProjectComplete(project.id);
             }}
           />
-      </div>
+        </div>
+        <div className="Project-tasks_wrapper">
+          <div className="Tasks-header">
+            <h2>Tasks</h2>
+            <Button
+              id="add-btn"
+              className="add-item-btn"
+              type="button"
+              name="add-btn"
+              text="+ New"
+              onClick={(e) => {
+                history.push('/tasks/add')
+              }}
+            />
+          </div>
+          <div className="Upcoming">
+            { project.tasks !== undefined && project.tasks.length > 0
+              ? <div className="Project-tasks">
+                  { project.tasks.map(item => {
+                    return (
+                      <div 
+                        className={`Upcoming-item ${item.date_due_string === 'Past due' ? 'past-due' : ''}`} 
+                        key={`${item.id}-${item.type}`}
+                        onClick={() => {
+                          history.push(`/${item.type}/${item.id}`)
+                        }}
+                      >
+                        <div className="Upcoming-summary">
+                          <span className="Upcoming-title">{item.title}</span>
+                          <span className={`Upcoming-type ${item.type}`}>{item.type}</span>
+                        </div>
+                        <div className="Upcoming-details">
+                          <p 
+                            className={`Project-due ${item.date_due_string === 'Past due' ? 'past-due' : ''}`}
+                          >
+                            {item.completed
+                              ? "Completed"
+                              : item.date_due_string
+                            }
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              : ""
+            }
+          </div>
+        </div>
     </div>
     
   );
