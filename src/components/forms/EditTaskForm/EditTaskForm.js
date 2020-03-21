@@ -56,7 +56,7 @@ const EditTaskForm = (props) => {
     }
   };
 
-  const submitForm = (e) => {
+  const submitForm = () => {
     const taskProperties = {
       title: input["title"],
       content: input["content"],
