@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useInputChange } from 'hooks/useInputChange';
 
@@ -9,12 +9,14 @@ import AuthApiService from 'services/auth-api-service';
 import SettingsApiService from 'services/settings-service';
 
 import Button from 'components/elements/Button/Button';
+import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
 
 import './Login.scss';
 
 const Login = () => {
 
   let { dispatch } = useContext(UserContext);
+  const [errors, setErrors] = useState({});
 
   let login = (settings) => dispatch({
     type: "login",
@@ -25,13 +27,30 @@ const Login = () => {
 
   const [input, handleInputChange] = useInputChange();
 
-  const submitJwtAuth = (e) => {
+  const validateLoginForm = (e) => {
     e.preventDefault();
-    const loginCreds = {
-      user_name: input["email-field"],
-      password: input["password-field"]
-    };
+    let errors = {};
+    if ( input["user_name"] === undefined || input["user_name"] === '' ) {
+      errors.user_name = { message: "Email is required" }
+    }
+    if ( input["password"] === undefined || input["password"] === '' ) {
+      errors.password = { message: "Password is required" }
+    }
 
+    if ( Object.keys(errors).length !== 0 ) {
+      return (
+        setErrors(errors)
+      );
+    } else {
+      submitJwtAuth();
+    }
+  };
+
+  const submitJwtAuth = () => {
+    const loginCreds = {
+      user_name: input["user_name"],
+      password: input["password"]
+    };
     AuthApiService.postLogin({
       user_name: loginCreds.user_name,
       password: loginCreds.password
@@ -46,8 +65,14 @@ const Login = () => {
           })
       })
       .catch(res => {
-        console.log('Something went wrong');
-      })
+        setErrors(
+          {
+            user_name: {
+              message: res.error
+            }
+          }
+        )
+      });
   }
 
   const guestLogin = (e) => {
@@ -81,28 +106,40 @@ const Login = () => {
       <form 
         id="Login_form"
         className="Login_form base-form"
-        onSubmit={(e) => submitJwtAuth(e)}
+        onSubmit={(e) => validateLoginForm(e)}
       >
         <h2 className="Main-heading">
           Log In
         </h2>
         <label htmlFor="email-field">
           Email
+          { errors.user_name 
+            ? <ErrorMsg 
+                message={errors.user_name.message} 
+              />
+            : ""
+          }
         </label>
         <input 
           type="email" 
           id="email-field" 
-          name="email-field"  
+          name="user_name"  
           autoComplete="email" 
           onChange={handleInputChange}
         />
         <label htmlFor="password-field">
           Password
+          { errors.password
+            ? <ErrorMsg 
+                message={errors.password.message} 
+              />
+            : ""
+          }
         </label>
         <input 
           type="password" 
           id="password-field" 
-          name="password-field" 
+          name="password" 
           autoComplete="current-password" 
           onChange={handleInputChange}
         />

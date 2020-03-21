@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useInputChange } from 'hooks/useInputChange';
 
 import { UserContext } from 'contexts/UserContext';
+import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
+
 import TokenService from 'services/token-service';
 import SettingsApiService from 'services/settings-service';
 import AuthApiService from 'services/auth-api-service';
@@ -16,6 +18,7 @@ const Signup = () => {
   const history = useHistory();
 
   const [input, handleInputChange] = useInputChange();
+  const [errors, setErrors] = useState({});
 
   let { dispatch } = useContext(UserContext);
   let login = (settings) => dispatch({
@@ -23,8 +26,39 @@ const Signup = () => {
     data: settings
   });
 
-  const submitForm = (e) => {
+  const validateLoginForm = (e) => {
     e.preventDefault();
+    let errors = {};
+    if ( input["user_name"] === undefined || input["user_name"] === '' ) {
+      errors.user_name = { message: "Email is required" }
+    }
+    if ( input["password"] === undefined || input["password"] === '' ) {
+      errors.password = { message: "Password is required" }
+    }
+    const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/;
+    if( !REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(input["password"]) ) {
+      errors.password = { message: `Requires at least one special character, one uppercase letter, and one number` }
+    };
+    if( input["password"] !== undefined && input["password"].length < 8 ) {
+      errors.password = { message: `Password must be at least 8 characters` }
+    }
+    if( input["password"] !== input["password-repeat-field"] ) {
+      errors["password-repeat-field"] = { message: `Passwords must match` }
+    }
+    if( input.nickname === undefined || input.nickname === '' ) {
+      errors.displayName = { message: 'Display name is required' }
+    }
+
+    if ( Object.keys(errors).length !== 0 ) {
+      return (
+        setErrors(errors)
+      );
+    } else {
+      submitForm();
+    }
+  };
+
+  const submitForm = () => {
     const registrationCreds = {
       user_name: input["user_name"],
       password: input["password"],
@@ -46,7 +80,9 @@ const Signup = () => {
           });
       })
       .catch(res => {
-        console.log('Something went wrong');
+        if ( res.error === "Username already taken" ) {
+          setErrors( { user_name: { message: res.error } } );
+        }
       });
   };
   return (
@@ -55,11 +91,17 @@ const Signup = () => {
       <form 
         id="Signup_form"
         className="Signup_form base-form"
-        onSubmit={(e) => submitForm(e) }
+        onSubmit={(e) => validateLoginForm(e) }
       >
         <h2 className="Main-heading">Sign Up</h2>
         <label htmlFor="email-field">
           Email
+          { errors.user_name 
+            ? <ErrorMsg 
+                message={errors.user_name.message} 
+              />
+            : ""
+          }
         </label>
         <input 
           type="email" 
@@ -70,6 +112,12 @@ const Signup = () => {
         />
         <label htmlFor="password-field">
           Password
+          { errors.password 
+            ? <ErrorMsg 
+                message={errors.password.message} 
+              />
+            : ""
+          }
         </label>
         <input 
           type="password" 
@@ -80,6 +128,12 @@ const Signup = () => {
         />
         <label htmlFor="password-repeat-field">
           Repeat Password
+          { errors["password-repeat-field"] 
+            ? <ErrorMsg 
+                message={errors["password-repeat-field"].message} 
+              />
+            : ""
+          }
         </label>
         <input 
           type="password" 
@@ -90,6 +144,12 @@ const Signup = () => {
         />
         <label htmlFor="display-name">
           Display Name
+          { errors.displayName
+            ? <ErrorMsg 
+                message={errors.displayName.message} 
+              />
+            : ""
+          }
         </label>
         <input 
           type="text" 
