@@ -50,7 +50,7 @@ const AppWrapper = (props) => {
             { props.children }
           </main>
         : <main className="Main_wrapper">
-            <p>Fetching data. Please wait...</p>
+            <p className="fetching">Fetching data. Please wait...</p>
           </main>
       }
     </>
