@@ -1,14 +1,23 @@
+// View component - Root page for logged in users
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+
+// Contexts
 import { UserContext } from 'contexts/UserContext';
 import { ItemsContext } from 'contexts/ItemsContext';
 
+// Helpers
+import { updateTimeStrings } from 'helpers/helpers';
+
+// Widget Components
 import Timer from 'components/widgets/Timer/Timer';
 import HydrationGauge from 'components/widgets/HydrationGauge/HydrationGauge';
-import Button from 'components/elements/Button/Button';
-import './Dashboard.scss';
 
-import { updateTimeStrings } from 'helpers/helpers';
+// Element components
+import Button from 'components/elements/Button/Button';
+
+// Files
+import './Dashboard.scss';
 
 const Dashboard = () => {
 
@@ -18,16 +27,15 @@ const Dashboard = () => {
   const history = useHistory();
 
   useEffect(() => {
-
     let timer = null;
-
+    // Set items if the items are fetched to update time strings
     if ( itemsContext.state.fetched ) {
-
       itemsContext.dispatch({
         type: 'set-all',
         payload: updateTimeStrings(itemsContext.state.all)
       });
   
+      // Update the time strings every second
       timer = setInterval(() => {
         itemsContext.dispatch({
           type: 'set-all',
@@ -36,6 +44,7 @@ const Dashboard = () => {
       }, 1000);
       
     }
+    // Clear the interval when component unmounts
     return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsContext.state.fetched]);

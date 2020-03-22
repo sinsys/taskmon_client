@@ -1,26 +1,36 @@
+// View component - Settings page
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
+// Services
+import SettingsApiService from 'services/settings-service';
+
+// Context / Hooks
 import { useInputChange } from 'hooks/useInputChange';
 import { UserContext } from 'contexts/UserContext';
 
-import SettingsApiService from 'services/settings-service';
+// Element components
 import Button from 'components/elements/Button/Button';
 
+// Files
 import './Settings.scss';
 
 const Settings = () => {
 
   let { state, dispatch } = useContext(UserContext);
 
+  // Login function automatically updates settings so we re-use it
   let login = (settings) => dispatch({
     type: "login",
     data: settings
   });
   
+  // Initialize our input context
   const [input, handleInputChange] = useInputChange();
 
   const history = useHistory();
 
+  // Submit form - No validation necessary
   const submitForm = (e) => {
     e.preventDefault();
     const settings = {};
@@ -34,6 +44,7 @@ const Settings = () => {
       .then(res => {
         SettingsApiService.getSettings()
           .then(res => {
+            // On successful update, update the user settings in state and go back where you were
             login(res);
             history.goBack();
           });

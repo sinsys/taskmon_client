@@ -1,13 +1,18 @@
+// View component - All projects page
 import React, { useContext, useEffect } from 'react';
-
-import Button from 'components/elements/Button/Button';
-
 import { useHistory } from 'react-router-dom';
+
+// Contexts
 import { UserContext } from 'contexts/UserContext';
 import { ItemsContext } from 'contexts/ItemsContext';
 
+// Helpers
 import { updateTimeStrings } from 'helpers/helpers';
 
+// Element components
+import Button from 'components/elements/Button/Button';
+
+// Files
 import './Projects.scss';
 
 const Projects = () => {
@@ -23,12 +28,13 @@ const Projects = () => {
 
     if ( itemsContext.state.fetched ) {
 
+      // Update our projects context with new human readable time strings
       itemsContext.dispatch({
         type: 'set-projects',
         payload: updateTimeStrings(itemsContext.state.projects)
       });
   
-      
+      // Update time strings every second
       timer = setInterval(() => {
         itemsContext.dispatch({
           type: 'set-projects',
@@ -37,6 +43,7 @@ const Projects = () => {
       }, 1000);
       
     }
+    // Clear the interval when component unmounts
     return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsContext.state.fetched]);

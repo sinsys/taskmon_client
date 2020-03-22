@@ -1,8 +1,10 @@
+// Context for our session - A global context handler
 import React, {
   createContext,
   useReducer
 } from "react";
 
+// Utilities/helpers
 import { getTimeString } from 'helpers/helpers';
 
 let SessionContext = createContext();
@@ -23,8 +25,10 @@ let initialState = {
   }
 };
 
+// Allows dispatch actions to update our state
 let reducer = (state, action) => {
   switch (action.type) {
+    // Start the timer and set it active. Record when timer started
     case "start-session":
       return {
         ...state,
@@ -34,6 +38,7 @@ let reducer = (state, action) => {
           active: true
         }
       }
+    // Ends the current sessios and sets it inactive. Records when timer ended
     case "stop-session":
       return {
         ...state,
@@ -43,6 +48,7 @@ let reducer = (state, action) => {
           active: false
         }
       }
+    // Used to update the session timer string
     case "update-string":
       return {
         ...state,
@@ -51,6 +57,7 @@ let reducer = (state, action) => {
           string: getTimeString("since", state.timer.start)
         }
       }
+    // Open or close the off-canvas menu
     case "toggle-menu":
       return {
         ...state,

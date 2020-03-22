@@ -1,7 +1,9 @@
+// Service to communicate for tasks endpoints
 import TokenService from '../services/token-service';
 import config from '../config';
 
 const TasksApiService = {
+  // Get all existing tasks for the user
   getTasks: () => {
     return fetch(`${config.API_ENDPOINT}/tasks`, {
       headers: {
@@ -14,6 +16,7 @@ const TasksApiService = {
           : res.json()
       )
   },
+  // Get a specific task for the user
   getTask: (task_id) => {
     return fetch(`${config.API_ENDPOINT}/tasks/${task_id}`, {
       headers: {
@@ -26,6 +29,7 @@ const TasksApiService = {
           : res.json()
       )
   },
+  // Update the task
   updateTask: (task_id, updatedTask) => {
     return fetch(`${config.API_ENDPOINT}/tasks/${task_id}`, {
       method: 'PATCH',
@@ -41,6 +45,7 @@ const TasksApiService = {
           : res.json()
       )
   },
+  // Ad a task for the user
   addTask: (newTask) => {
     return fetch(`${config.API_ENDPOINT}/tasks`, {
       method: 'POST',
@@ -56,6 +61,7 @@ const TasksApiService = {
           : res.json()
       )
   },
+  // Delete a task for the user
   deleteTask: (task_id) => {
     return fetch(`${config.API_ENDPOINT}/tasks/${task_id}`, {
       method: 'DELETE',

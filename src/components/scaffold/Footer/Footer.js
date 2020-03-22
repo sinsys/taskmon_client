@@ -1,3 +1,4 @@
+// Scaffolding Component - Footer
 import React from 'react';
 
 import './Footer.scss';

@@ -1,31 +1,40 @@
+// View component - Signup page for non-logged in users
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useInputChange } from 'hooks/useInputChange';
 
-import { UserContext } from 'contexts/UserContext';
-import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
-
+// Services
 import TokenService from 'services/token-service';
 import SettingsApiService from 'services/settings-service';
 import AuthApiService from 'services/auth-api-service';
 
+// Contexts / Hooks
+import { UserContext } from 'contexts/UserContext';
+import { useInputChange } from 'hooks/useInputChange';
+
+// Element components
+import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
 import Button from 'components/elements/Button/Button';
 
+// Files
 import './Signup.scss';
 
 const Signup = () => {
 
   const history = useHistory();
 
+  // Initialize our input context
   const [input, handleInputChange] = useInputChange();
   const [errors, setErrors] = useState({});
 
   let { dispatch } = useContext(UserContext);
+
+  // Using login function if user successfully registers to log the user in
   let login = (settings) => dispatch({
     type: "login",
     data: settings
   });
 
+  // Lots of validations. Should be self explanatory
   const validateSignupForm = (e) => {
     e.preventDefault();
     let errors = {};
@@ -58,6 +67,7 @@ const Signup = () => {
     }
   };
 
+  // If validation passes, submit the registration
   const submitForm = () => {
     const registrationCreds = {
       user_name: input["user_name"],
@@ -74,6 +84,7 @@ const Signup = () => {
             TokenService.saveAuthToken(res.authToken);
             SettingsApiService.getSettings()
               .then(res => {
+                // If registration is successful, log the user in and push them to their dashboard
                 history.push('/');
                 login(res);
               });

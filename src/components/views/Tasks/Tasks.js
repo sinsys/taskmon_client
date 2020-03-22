@@ -1,12 +1,18 @@
+// View component - All tasks page
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+
+// Contexts
 import { UserContext } from 'contexts/UserContext';
 import { ItemsContext } from 'contexts/ItemsContext';
 
-import Button from 'components/elements/Button/Button';
-
+// Helpers
 import { updateTimeStrings } from 'helpers/helpers';
 
+// Element components
+import Button from 'components/elements/Button/Button';
+
+// Files
 import './Tasks.scss';
 
 const Tasks = () => {
@@ -22,11 +28,13 @@ const Tasks = () => {
 
     if ( itemsContext.state.fetched ) {
 
+       // Update our tasks context with new human readable time strings
       itemsContext.dispatch({
         type: 'set-tasks',
         payload: updateTimeStrings(itemsContext.state.tasks)
       });
   
+      // Update time strings every second
       timer = setInterval(() => {
         itemsContext.dispatch({
           type: 'set-tasks',
@@ -35,6 +43,7 @@ const Tasks = () => {
       }, 1000);
       
     }
+    // Clear the interval when component unmounts
     return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsContext.state.fetched]);

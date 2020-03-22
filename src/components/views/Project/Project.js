@@ -1,17 +1,25 @@
+// View component - Individual project page
 import React, { useState, useContext, useEffect } from 'react';
-
-import ProjectsApiService from 'services/projects-service';
-import Button from 'components/elements/Button/Button';
-
 import { useHistory } from 'react-router-dom';
+
+// Services
+import ProjectsApiService from 'services/projects-service';
+
+// Contexts
 import { ItemsContext } from 'contexts/ItemsContext';
 
+// Helpers
 import { getTimeString } from 'helpers/helpers';
 
+// Element components
+import Button from 'components/elements/Button/Button';
+
+// Files
 import './Project.scss';
 
 const Project = (props) => {
 
+  // We set our own state object here to avoid calling complex logic on the itemsContext.projects array
   let [project, setProject] = useState({});
   let itemsContext = useContext(ItemsContext);
 
@@ -21,8 +29,11 @@ const Project = (props) => {
 
     let timer = null;
 
+
     const updateTimeStrings = (item) => {
+      // Update some additional properties we'll need that context doesn't provide
       if (item.hasOwnProperty('tasks') && item.tasks.length > 0){
+        // We map twice - Once to update the project time string, and once to update it's tasks time strings
         return {
           ...item,
           date_due_string: getTimeString("until", new Date(item.date_due)),
@@ -34,29 +45,35 @@ const Project = (props) => {
           })
         }
       } else {
+        // We do not map the tasks if the project has none
         return { 
           ...item,
           date_due_string: getTimeString("until", new Date(item.date_due))
         }
       }
     };
-
+    // Set the project if the project is fetched
     if ( itemsContext.state.fetched ) {
+      // Get our project from context
       let project = 
         itemsContext.state.projects.find(project => {
           let projectIdInt = parseInt(props.projectId);
           return project.id === projectIdInt;
         });
+      // Set the project to local state
       setProject(updateTimeStrings(project));
+      // Start a timer to update time strings every second
       timer = setInterval(() => {
         setProject(updateTimeStrings(project));
       }, 1000);
     }
 
+    // Clear the interval when component unmounts
     return () => clearInterval(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsContext.state.fetched]);
 
+  // Marks a project as complete
   const markProjectComplete = (projectId) => {
     let markCompleted = { completed: true };
     ProjectsApiService.updateProject(projectId, markCompleted)
@@ -67,6 +84,7 @@ const Project = (props) => {
       });
   };
 
+  // Marks the project as incomplete
   const markProjectIncomplete = (projectId) => {
     let markCompleted = { completed: false };
     ProjectsApiService.updateProject(projectId, markCompleted)
@@ -77,6 +95,7 @@ const Project = (props) => {
       });
   };
 
+  // Deletes the project
   const deleteProject = (projectId) => {
     if (window.confirm(`Are you sure you want to delete ${project.title}`) ) {
       ProjectsApiService.deleteProject(projectId)
@@ -89,6 +108,7 @@ const Project = (props) => {
     }
   };
 
+  // Lots of conditional rendering here. Potential area to clean up during another refactor
   return (
     <div className="Main Project">
       <div className="project-heading">

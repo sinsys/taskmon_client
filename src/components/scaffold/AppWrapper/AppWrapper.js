@@ -1,27 +1,32 @@
+// Scaffolding Component - This is an fetch wrapper to listen and refetch data if needed
 import React, { useContext, useEffect } from 'react';
 
+// Services
 import ProjectsApiService from 'services/projects-service';
 import TasksApiService from 'services/tasks-service';
+import TokenService from 'services/token-service';
 import SettingsApiService from 'services/settings-service';
 
+// Contexts
 import { ItemsContext } from 'contexts/ItemsContext';
 import { UserContext } from 'contexts/UserContext';
 
+// Helpers
 import { addAdditionalProperties as modifyQuery } from 'helpers/helpers';
-
-import TokenService from 'services/token-service';
 
 const AppWrapper = (props) => {
 
   let itemsContext = useContext(ItemsContext);
   let { dispatch } = useContext(UserContext);
 
+  // Logs the user in and sets their settings to the session
   let login = (settings) => dispatch({
     type: "login",
     data: settings
   });
 
   useEffect(() => {
+    // Listener effect to refetch data if our itemsContext.state.fetched is changed
     if ( !itemsContext.state.fetched && TokenService.hasAuthToken() ) {
       Promise.all([
         ProjectsApiService.getProjects(), 
@@ -30,6 +35,7 @@ const AppWrapper = (props) => {
       ])
         .then(([projects, tasks, settings]) => {
 
+          // Sets our itemsContext values with returned data from our API
           itemsContext.dispatch({
             type: 'set-items',
             payload: modifyQuery(projects, tasks)

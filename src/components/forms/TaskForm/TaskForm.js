@@ -1,29 +1,37 @@
+// View Component - Adding a task
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
+// Services
 import TasksApiService from 'services/tasks-service';
 
+// Contexts / Hooks
+import { ItemsContext } from 'contexts/ItemsContext';
 import { useInputChange } from 'hooks/useInputChange';
+
+// Element components
+import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
+import Button from 'components/elements/Button/Button';
 import { Checkbox } from '@material-ui/core';
 import { DateTimePicker } from '@material-ui/pickers';
 
-import { ItemsContext } from 'contexts/ItemsContext';
-
-import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
-import Button from 'components/elements/Button/Button';
-
+// Files
 import './TaskForm.scss';
-
 
 const TaskForm = () => {
 
   const history = useHistory();
 
   const itemsContext = useContext(ItemsContext);
+
+    // Initializes our input context
   const [input, handleInputChange] = useInputChange();
+
+  // material-ui state - Handles the DateTimePicker component's value
   const [selectedDate, handleDateChange] = useState(new Date());
   const [errors, setErrors] = useState({});
 
+  // Validates the form to ensure it includes a title
   const validateTaskForm = (e) => {
     e.preventDefault();
     let errors = {};
@@ -39,6 +47,7 @@ const TaskForm = () => {
     }
   };
 
+  // Submits the form if validation passes
   const submitForm = (e) => {
     const taskProperties = {
       title: input["title"],
@@ -54,6 +63,7 @@ const TaskForm = () => {
     }
     TasksApiService.addTask(taskProperties)
       .then(res => {
+        // Triggers a refetch of our projects/items to avoid manual state changes
         itemsContext.dispatch({
           type: 'refetch'
         });

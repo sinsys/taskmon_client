@@ -1,7 +1,10 @@
+// Context for our user - Includes settings, nickname, etc
 import React, {
   createContext,
   useReducer
 } from "react";
+
+// Services
 import TokenService from 'services/token-service';
 
 let UserContext = createContext();
@@ -15,6 +18,7 @@ let initialState = {
 
 let reducer = (state, action) => {
   switch (action.type) {
+    // Logs the user in. Updates state about the user
     case "login":
       return {
         nickname: action.data.nickname,
@@ -23,6 +27,7 @@ let reducer = (state, action) => {
         fetched: true
       };
     case "logout":
+      // Logs the user out. Clears settings and info about user
       TokenService.clearAuthToken();
       return {
         name: '',

@@ -1,17 +1,22 @@
+// Scaffolding Component - Header
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import logo from 'assets/images/logo.svg';
 
-import Burger from 'components/widgets/Burger/Burger';
-
+// Contexts
 import { UserContext } from 'contexts/UserContext';
 
+// Widget Components
+import Burger from 'components/widgets/Burger/Burger';
+
+// Files / Images
+import logo from 'assets/images/logo.svg';
 import './Header.scss';
 
 const Header = () => {
 
   let userContext = useContext(UserContext);
 
+  // Toggles header style if user is logged in or not
   return (
 
     <header 

@@ -1,5 +1,8 @@
+// View component - Root page for 404
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+// Files
 import './NoMatch.scss';
 
 const NoMatch = () => {

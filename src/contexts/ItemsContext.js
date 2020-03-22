@@ -1,3 +1,4 @@
+// Context for our tasks, projects, and a boolean if data is fetched or not
 import React, {
   createContext,
   useReducer
@@ -13,8 +14,10 @@ let initialState = {
   error: null
 };
 
+// Allows dispatch actions to update our state
 let reducer = (state, action) => {
   switch (action.type) {
+    // Set our projects and tasks from our response
     case 'set-items':
       return {
         ...state,
@@ -23,26 +26,31 @@ let reducer = (state, action) => {
         tasks: action.payload.tasks,
         all: action.payload.all
       }
+    // Update only the tasks
     case 'set-tasks':
       return {
         ...state,
         tasks: action.payload
       }
+    // Update only the projects
     case 'set-projects':
       return {
         ...state,
         projects: action.payload
       }
+    // Set all items for dashboard
     case 'set-all':
       return {
         ...state,
         all: action.payload
       }
+    // Trigger to refetch our items from the database
     case 'refetch':
       return {
         ...state,
         fetched: false
       }
+    // Set errors in state if any exist
     case 'set-error':
       return {
         ...state,

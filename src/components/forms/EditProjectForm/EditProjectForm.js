@@ -1,16 +1,21 @@
+// View Component - Editing a project
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
+// Services
 import ProjectsApiService from 'services/projects-service';
 
-import { useInputChange } from 'hooks/useInputChange';
-import { DateTimePicker } from '@material-ui/pickers';
-
+// Contexts / Hooks
 import { ItemsContext } from 'contexts/ItemsContext';
+import { useInputChange } from 'hooks/useInputChange';
 
+
+// Element Components
 import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
 import Button from 'components/elements/Button/Button';
+import { DateTimePicker } from '@material-ui/pickers';
 
+// Files
 import './EditProjectForm.scss';
 
 const EditProjectForm = (props) => {
@@ -19,20 +24,25 @@ const EditProjectForm = (props) => {
 
   const itemsContext = useContext(ItemsContext);
 
+  // Finds project from our items context based on route projectId
   let contextProject = itemsContext.state.projects.find(project => {
     let projectIdInt = parseInt(props.projectId);
     return project.id === projectIdInt;
   });
 
+  // Initializes our input context on existing values of the selected project
   const [input, handleInputChange] = useInputChange({
     ...contextProject
   });
 
+  // material-ui state - Handles the DateTimePicker component's value
   const [selectedDate, handleDateChange] = useState(new Date());
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
 
+    // Initializes the datepicker on the selected project
+    // Only does this if the data has been fetched already
     if ( itemsContext.state.fetched ) {
       handleDateChange(new Date(input["date_due"]))
     };
@@ -40,6 +50,7 @@ const EditProjectForm = (props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemsContext.state.fetched]);
 
+  // Validates the form to ensure it includes a title
   const validateProjectForm = (e) => {
     e.preventDefault();
     let errors = {};
@@ -55,6 +66,7 @@ const EditProjectForm = (props) => {
     }
   };
 
+  // Submits the form if validation passes
   const submitForm = (e) => {
     const projectProperties = {
       title: input["title"],
@@ -64,6 +76,7 @@ const EditProjectForm = (props) => {
 
     ProjectsApiService.updateProject(props.projectId, projectProperties)
       .then(res => {
+        // Triggers a refetch of our projects/items to avoid manual state changes
         itemsContext.dispatch({
           type: 'refetch'
         });

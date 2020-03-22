@@ -1,7 +1,9 @@
+// Service to communicate for projects endpoints
 import TokenService from '../services/token-service';
 import config from '../config';
 
 const ProjectsApiService = {
+  // Get all existing projects for the user
   getProjects: () => {
     return fetch(`${config.API_ENDPOINT}/projects`, {
       headers: {
@@ -14,6 +16,7 @@ const ProjectsApiService = {
           : res.json()
       )
   },
+  // Get a specific project for the user
   getProject: (project_id) => {
     return fetch(`${config.API_ENDPOINT}/projects/${project_id}`, {
       headers: {
@@ -26,6 +29,7 @@ const ProjectsApiService = {
           : res.json()
       )
   },
+  // Update the project
   updateProject: (project_id, updatedProject) => {
     return fetch(`${config.API_ENDPOINT}/projects/${project_id}`, {
       method: 'PATCH',
@@ -41,6 +45,7 @@ const ProjectsApiService = {
           : res.json()
       )
   },
+  // Add a new project for the user
   addProject: (newProject) => {
     return fetch(`${config.API_ENDPOINT}/projects`, {
       method: 'POST',
@@ -56,6 +61,7 @@ const ProjectsApiService = {
           : res.json()
       )
   },
+  // Delete a project for the user
   deleteProject: (project_id) => {
     return fetch(`${config.API_ENDPOINT}/projects/${project_id}`, {
       method: 'DELETE',
@@ -70,23 +76,5 @@ const ProjectsApiService = {
           : ""
       )
   }
-  // postComment(articleId, text) {
-  //   return fetch(`${config.API_ENDPOINT}/comments`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       'authorization': `basic ${TokenService.getAuthToken()}`,
-  //     },
-  //     body: JSON.stringify({
-  //       article_id: articleId,
-  //       text,
-  //     }),
-  //   })
-  //     .then(res =>
-  //       (!res.ok)
-  //         ? res.json().then(e => Promise.reject(e))
-  //         : res.json()
-  //     )
-  // }
 }
 export default ProjectsApiService;

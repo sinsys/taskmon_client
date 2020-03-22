@@ -1,3 +1,6 @@
+// Helper functions
+
+// Converts a javascript date object into a human readable time of "until" or "since"
 const getTimeString = (direction, dateObj) => {
 	let values = {};
   let difference;
@@ -46,6 +49,7 @@ const getTimeString = (direction, dateObj) => {
   return timeArr.join(' ');
 };
 
+// Takes an array of items and adds a date_due_string to them
 const updateTimeStrings = (items) => {
   return items.map(item => {
     return {
@@ -55,7 +59,10 @@ const updateTimeStrings = (items) => {
   });
 };
 
+// Adds properties we'll need that the API doesn't serve
 const addAdditionalProperties = (projects, tasks) => {
+
+  // Adds type of projects, how many tasks exist for the project, and the tasks for the project to the projects array
   let projectsModifier = projects.map(cur => {
 
     return {
@@ -72,6 +79,7 @@ const addAdditionalProperties = (projects, tasks) => {
 
   });
 
+  // Adds a type of tasks and the project's name to the tasks array
   let tasksModifier = tasks.map(cur => {
 
     return  {
@@ -85,6 +93,7 @@ const addAdditionalProperties = (projects, tasks) => {
 
   });
 
+  // Sorts the combination of projects and tasks for the dashboard view by when they're due
   let allModifier = projectsModifier.concat(tasksModifier)
     .sort((a, b) => {
       return new Date(a.date_due) - new Date(b.date_due);

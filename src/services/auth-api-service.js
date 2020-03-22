@@ -1,6 +1,8 @@
+// Service to communicate for authentication endpoints
 import config from '../config';
 
 const AuthApiService = {
+  // Log the user in
   postLogin: (credentials) => {
     return (
       fetch(`${config.API_ENDPOINT}/auth/login`, {
@@ -19,6 +21,7 @@ const AuthApiService = {
         })
     );
   },
+  // Register a new user
   postUser: (user) => {
     return (
       fetch(`${config.API_ENDPOINT}/users`, {

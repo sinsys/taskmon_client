@@ -1,19 +1,21 @@
+// Widget component - Off-canvas menu
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import { faChalkboardTeacher, faCheckSquare, faProjectDiagram, faCogs, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+// Contexts
 import { UserContext } from 'contexts/UserContext';
 import { SessionContext } from 'contexts/SessionContext';
 
+// Files / Icons
+import { faChalkboardTeacher, faCheckSquare, faProjectDiagram, faCogs, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './Menu.scss';
 
 const Menu = () => {
   
+  // Requires the usercontext to log the user out and the session context to control the open/close state of the menu
   let userContext = useContext(UserContext);
   let { state, dispatch } = useContext(SessionContext);
-
 
   let closeMenu = () => dispatch({
     type: "toggle-menu"

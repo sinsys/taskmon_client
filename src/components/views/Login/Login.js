@@ -1,16 +1,21 @@
+// View component - Root page for non logged in users
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useInputChange } from 'hooks/useInputChange';
 
-import { UserContext } from 'contexts/UserContext';
-
+// Services
 import TokenService from 'services/token-service';
 import AuthApiService from 'services/auth-api-service';
 import SettingsApiService from 'services/settings-service';
 
+// Contexts / Hooks
+import { UserContext } from 'contexts/UserContext';
+import { useInputChange } from 'hooks/useInputChange';
+
+// Element components
 import Button from 'components/elements/Button/Button';
 import ErrorMsg from 'components/elements/ErrorMsg/ErrorMsg';
 
+// Files
 import './Login.scss';
 
 const Login = () => {
@@ -18,6 +23,7 @@ const Login = () => {
   let { dispatch } = useContext(UserContext);
   const [errors, setErrors] = useState({});
 
+  // Logs the user in and sets their settings to the session
   let login = (settings) => dispatch({
     type: "login",
     data: settings
@@ -25,8 +31,10 @@ const Login = () => {
 
   const history = useHistory();
 
+  // Initializes our input context
   const [input, handleInputChange] = useInputChange();
 
+  // Validates the form to ensure it includes a username and password
   const validateLoginForm = (e) => {
     e.preventDefault();
     let errors = {};
@@ -46,6 +54,7 @@ const Login = () => {
     }
   };
 
+  // Submits form if credentials are provided
   const submitJwtAuth = () => {
     const loginCreds = {
       user_name: input["user_name"],
@@ -65,10 +74,13 @@ const Login = () => {
           })
       })
       .catch(res => {
+        // Update our error text on user_name if a server error
+        // Common example would be "Username already exists"
         setErrors( { user_name: { message: res.error } } );
       });
   }
 
+  // Logs user in with default credentials. It is a public account and credentials do not need to be secured
   const guestLogin = (e) => {
     e.preventDefault();
     const loginCreds = {
