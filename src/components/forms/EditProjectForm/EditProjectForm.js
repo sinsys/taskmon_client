@@ -133,7 +133,7 @@ const EditProjectForm = (props) => {
           name="cancel-btn"
           text="Cancel"
           onClick={(e) => {
-            history.push('/')
+            history.push(`/projects/${props.projectId}`);
           }}
         />
       </form>

@@ -171,7 +171,7 @@ const EditTaskForm = (props) => {
           name="cancel-btn"
           text="Cancel"
           onClick={(e) => {
-            history.push('/')
+            history.push(`/tasks/${props.taskId}`);
           }}
         />
       </form>

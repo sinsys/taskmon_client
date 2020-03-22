@@ -5,7 +5,7 @@ import { ItemsContext } from 'contexts/ItemsContext';
 
 import Timer from 'components/widgets/Timer/Timer';
 import HydrationGauge from 'components/widgets/HydrationGauge/HydrationGauge';
-
+import Button from 'components/elements/Button/Button';
 import './Dashboard.scss';
 
 import { updateTimeStrings } from 'helpers/helpers';
@@ -87,6 +87,29 @@ const Dashboard = () => {
           }
         </div>
       </div>
+      <div className="Dashboard-btns_wrapper">
+        <Button
+          id="add-project-btn"
+          className="dashboard-add-item-btn"
+          type="button"
+          name="add-project"
+          text="+ Add Project"
+          onClick={(e) => {
+            history.push(`/projects/add`);
+          }}
+        />
+        <Button
+            id="add-task-btn"
+            className="dashboard-add-item-btn"
+            type="button"
+            name="add-task"
+            text="+ Add Task"
+            onClick={(e) => {
+              history.push(`/tasks/add`);
+            }}
+          />
+      </div>
+
     </div>
     
   );

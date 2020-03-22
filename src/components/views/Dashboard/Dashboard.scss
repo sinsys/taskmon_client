@@ -95,3 +95,15 @@ p.Upcoming-due {
     color: $error;
   }
 }
+
+.Dashboard-btns_wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  button {
+    color: $white;
+    background: $light-green;
+    margin: 0 1rem 1rem 1rem;
+  }
+}
