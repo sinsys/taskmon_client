@@ -21,7 +21,11 @@ let initialState = {
     string: ''
   },
   hydration: {
-    percent: 25
+    start: new Date().getTime(),
+    percent: 0,
+    interval: 7200000, // 2 hours in milliseconds - Will add as customizable setting later
+    alert: false,
+    flash: false
   }
 };
 
@@ -63,6 +67,41 @@ let reducer = (state, action) => {
         ...state,
         menu: {
           open: !state.menu.open
+        }
+      }
+    // Set hydration percent
+    case "set-hydration":
+      return {
+        ...state,
+        hydration: {
+          ...state.hydration,
+          percent: action.payload
+        }
+      }
+    case "set-hydration-alert":
+      return {
+        ...state,
+        hydration: {
+          ...state.hydration,
+          alert: true
+        }
+      }
+    case "reset-hydration":
+      return {
+        ...state,
+        hydration: {
+          ...state.hydration,
+          start: new Date().getTime(),
+          percent: 100,
+          alert: false
+        }
+      }
+    case "toggle-flash":
+      return {
+        ...state,
+        hydration: {
+          ...state.hydration,
+          flash: !state.hydration.flash
         }
       }
     default:

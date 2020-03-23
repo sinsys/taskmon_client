@@ -3,6 +3,7 @@
 .Hydration_wrapper {
   width: 100%;
   margin: 0.5rem 0;
+  text-align: center;
 }
 .Hydration-gauge {
   width: 100%;
@@ -21,8 +22,8 @@
   
   & span {
     height: 100%;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     background-color: $light-blue;
