@@ -34,10 +34,14 @@ It also records how long you are working and provides a helpful "hydration meter
 - User Flows: [User Flows on Draw.io](https://drive.google.com/file/d/1Z--cjFDzV-dabEC5hAtgKheW9UV70B5F/view?usp=sharing)
 
 ## Screenshots
-![Login Page](https://raw.githubusercontent.com/sinsys/taskmon_client/master/screenshots/login.jpg)
-![Dashboard Page](https://raw.githubusercontent.com/sinsys/taskmon_client/master/screenshots/dashboard.jpg)
-![Project Page](https://raw.githubusercontent.com/sinsys/taskmon_client/master/screenshots/project.jpg)
-![Project w/ Overdue Task](https://raw.githubusercontent.com/sinsys/taskmon_client/master/screenshots/project-tasks-overdue.jpg)
+- Login Page:
+  - ![Login Page](https://raw.githubusercontent.com/sinsys/taskmon_client/master/screenshots/login.jpg)
+- Dashboard Page:
+  - ![Dashboard Page](https://raw.githubusercontent.com/sinsys/taskmon_client/master/screenshots/dashboard.jpg)
+- Project Page:
+  - ![Project Page](https://raw.githubusercontent.com/sinsys/taskmon_client/master/screenshots/project.jpg)
+- Project w/ Overdue Task:
+  - ![Project w/ Overdue Task](https://raw.githubusercontent.com/sinsys/taskmon_client/master/screenshots/project-tasks-overdue.jpg)
 
 ## Requirements
 
