@@ -48,6 +48,7 @@ const Landing = () => {
         SettingsApiService.getSettings()
           .then(res => {
             login(res);
+            history.push('/');
           })
       })
       .catch(res => {
