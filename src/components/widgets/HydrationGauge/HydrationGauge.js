@@ -1,5 +1,5 @@
 // Widget component - Hydration gauge bar
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 
 // Element components
 import Button from 'components/elements/Button/Button';

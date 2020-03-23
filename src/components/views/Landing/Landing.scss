@@ -1,0 +1,98 @@
+@import 'themes/_meadow.scss';
+
+.Landing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Landing_wrapper {
+  margin: 1rem 0;
+  background: $light-gray;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 2rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.25);
+}
+.Landing_wrapper h2 {
+  color: $black;
+  background: $light-green;
+  text-align: center;
+  width: 100%;
+  border-radius: 2rem 2rem 0 0;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.25);
+}
+
+.Landing-description {
+  padding: 1rem;
+}
+.Landing-description p {
+  margin: 1rem;
+  line-height: 1.2rem;
+}
+
+.Landing-features {
+  width: 90%;
+}
+.Landing-features h2 {
+  width: 100%;
+  background: $light-green;
+  border-radius: 1rem;
+  color: $black;
+}
+
+.Landing-features-list {
+  padding: 1rem 0;
+}
+.Landing-features-list li,
+.Landing-features h3 {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+}
+.Landing-features-list li span,
+.Landing-features h3 span {
+  padding: 0.5rem 1rem;
+  color: $light-blue;
+  font-size: 1.5rem;
+}
+
+.Landing-features h3 {
+  padding: 1rem 1rem 0 0.5rem;
+}
+
+.Landing-features p {
+  margin: 1rem;
+  line-height: 1.2rem;
+}
+
+.disclaimer {
+  font-weight: bold;
+  color: $dark-gray;
+  padding: 0 1rem 0 1rem;
+  margin: 1rem 0 1rem 1rem;
+  border-left: 0.25rem solid $gray;
+}
+
+.Landing-usage-item {
+  background: $white;
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.25);
+}
+
+.Landing-features.summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Landing-features.summary button {
+  width: 100%;
+  max-width: 480px;
+  margin: 1rem;
+}

@@ -13,6 +13,7 @@ import Footer from 'components/scaffold/Footer/Footer';
 import Login from 'components/views/Login/Login';
 import Signup from 'components/views/Signup/Signup';
 import NoMatch from 'components/views/NoMatch/NoMatch';
+import Landing from 'components/views/Landing/Landing';
 
 // Files
 import 'index.scss';
@@ -26,6 +27,10 @@ const LoggedOut = () => {
         <Switch>
           <PublicOnlyRoute
             exact path={'/'}
+            component={Landing}
+          />
+          <PublicOnlyRoute
+            exact path={'/login'}
             component={Login}
           />
           <PublicOnlyRoute

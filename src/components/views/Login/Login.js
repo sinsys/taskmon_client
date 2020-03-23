@@ -71,6 +71,7 @@ const Login = () => {
         SettingsApiService.getSettings()
           .then(res => {
             login(res);
+            history.push('/');
           })
       })
       .catch(res => {
@@ -99,6 +100,7 @@ const Login = () => {
         SettingsApiService.getSettings()
           .then(res => {
             login(res);
+            history.push('/');
           })
       })
       .catch(res => {
